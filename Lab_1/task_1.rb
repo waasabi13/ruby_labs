@@ -22,3 +22,9 @@ when "Prolog","prolog"
 else
   "Вау, что-то неординарное"
 end
+
+###########
+
+puts "#{name}, введи команду Ruby: "
+ruby_com = STDIN.gets.chomp
+system "ruby -e \"#{ruby_com}\""
