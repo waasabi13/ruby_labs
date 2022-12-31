@@ -28,3 +28,16 @@ def sum_digits(x)
   end
   p sum
 end
+
+#2
+
+def count_special_digits(x)
+  count=0
+  while x>0
+    if (x%10)>3 && (x%10)%2!=0
+      count+=1
+    end
+    x/=10
+  end
+  p count
+end
