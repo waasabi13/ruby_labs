@@ -1,33 +1,18 @@
 #1
 
-def is_simple(x)
-  result=true
-  if x==1
-    result=false
-  end
-  if x==2
-    result=true
-  end
-  cur_del=2
-  while cur_del<x
-    if x%cur_del==0
-      result=false
-    end
-    cur_del+=1
-  end
-  result
+def prime?(number)
+  return false if number <= 1
+  return true if number == 2
+  Math.sqrt(number).ceil.downto(2).each { |i| return false if (number % i).zero? }
+  true
 end
-def sum_digits(x)
-  sum=0
-  cur_del=2
-  while cur_del<x
-    if x%cur_del==0 and is_simple(cur_del)==true
-      sum+=cur_del
-    end
-    cur_del+=1
-  end
-  p sum
+
+def sum_nonprime_divisors(number)
+  sum = 0
+  number.downto(1).each { |i| sum += i if (number % i).zero? && !prime?(i) }
+  sum
 end
+
 
 #2
 
@@ -41,3 +26,8 @@ def count_special_digits(x)
   end
   p count
 end
+
+puts 'Введите число:'
+number = STDIN.gets.to_i
+puts "Сумма непростых делителей числа #{number}: #{sum_nonprime_divisors(number)}"
+
