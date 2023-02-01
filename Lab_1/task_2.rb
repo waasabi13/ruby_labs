@@ -1,3 +1,5 @@
+#12 variant!!!
+
 #1
 
 def prime?(number)
@@ -15,19 +17,17 @@ end
 
 
 #2
-
-def count_special_digits(x)
-  count=0
-  while x>0
-    if (x%10)>3 && (x%10)%2!=0
-      count+=1
-    end
-    x/=10
-  end
-  p count
+def count_digits_less_than3(number)
+  count = 0
+  number.digits.each { |i| count += 1 if i < 3 }
+  count
 end
+
 
 puts 'Введите число:'
 number = STDIN.gets.to_i
 puts "Сумма непростых делителей числа #{number}: #{sum_nonprime_divisors(number)}"
 
+puts 'Введите число:'
+number = STDIN.gets.to_i
+puts "Количество цифр числа #{number} меньших 3: #{count_digits_less_than3(number)}"
