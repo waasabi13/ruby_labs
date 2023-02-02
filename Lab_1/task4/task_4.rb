@@ -13,8 +13,16 @@ def reverse_between_min_max(array)
   array[0..min].concat(array[min+1..max-1].reverse).concat(array[max..array.length-1])
 end
 
+def find_two_very_max_elements(array)
+  max=array.max
+  array.delete(max)
+  max2=array.max
+  [max,max2]
+end
+
 file_path = ARGV[0]
 file = File.open(file_path)
 array = file.readline.split(' ').map(&:to_i)
 puts "Массив: #{array}"
 puts "Результат: #{reverse_between_min_max(array)}"
+puts "Результат: #{find_two_very_max_elements(array)}"
