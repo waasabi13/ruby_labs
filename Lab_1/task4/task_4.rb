@@ -47,6 +47,14 @@ def built_special_array(array)
   result
 end
 
+def built_array_self_div_unique(array)
+  result=[]
+  (1..array.length-1).each do |idx|
+    result<<array[idx] if array[idx]%idx==0 && array.count(array[idx])==1
+  end
+  result
+end
+
 file_path = ARGV[0]
 file = File.open(file_path)
 array = file.readline.split(' ').map(&:to_i)
@@ -55,3 +63,4 @@ puts "Результат: #{reverse_between_min_max(array)}"
 puts "Результат: #{find_two_very_max_elements(array)}"
 puts "Результат: #{find_max_odd(array)}"
 puts "Результат: #{built_special_array(array)}"
+puts "Результат: #{built_array_self_div_unique(array)}"
