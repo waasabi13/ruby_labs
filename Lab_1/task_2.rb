@@ -1,4 +1,4 @@
-#12 variant!!!
+#12 variant
 
 #1
 
@@ -24,6 +24,19 @@ def count_digits_less_than3(number)
 end
 
 
+# 3
+def sum_prime_digits(number) # сумма простых цифр числа
+  sum=0
+  number.digits.each { |i| sum += i if prime?(i) }
+  sum
+end
+def count_unique(number)
+  count = 0
+  number.downto(2).each { |i| count += 1 unless ((number % i).zero?) || i.gcd(number) != 1 || i.gcd(sum_prime_digits(number)) == 1 } # gcd - встроенный нод
+  count
+end
+
+
 puts 'Введите число:'
 number = STDIN.gets.to_i
 puts "Сумма непростых делителей числа #{number}: #{sum_nonprime_divisors(number)}"
@@ -31,3 +44,7 @@ puts "Сумма непростых делителей числа #{number}: #{s
 puts 'Введите число:'
 number = STDIN.gets.to_i
 puts "Количество цифр числа #{number} меньших 3: #{count_digits_less_than3(number)}"
+
+puts 'Введите число:'
+number = STDIN.gets.to_i
+puts "Количество уникальных чисел числа #{number}: #{count_unique(number)}"
