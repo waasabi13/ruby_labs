@@ -64,3 +64,12 @@ puts "Результат: #{find_two_very_max_elements(array)}"
 puts "Результат: #{find_max_odd(array)}"
 puts "Результат: #{built_special_array(array)}"
 puts "Результат: #{built_array_self_div_unique(array)}"
+
+
+number_method = ARGV[1].to_i
+methods_array = [:reverse_between_min_max, :find_two_very_max_elements, :find_max_odd, :built_special_array, :built_array_self_div_unique]
+unless number_method.between?(0, methods_array.length - 1)
+  puts 'Некорректный номер вызываемого метода'
+  return
+end
+puts "Результат работы вызываемого метода: #{method(methods_array[number_method]).call(array)}"
