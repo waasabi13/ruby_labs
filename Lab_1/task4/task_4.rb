@@ -20,9 +20,18 @@ def find_two_very_max_elements(array)
   [max,max2]
 end
 
+
+def find_max_odd(array)
+  result=nil
+  array.each{|element| result=element if (element%2!=0) and (result==nil || element>result)}
+  result
+end
+
+
 file_path = ARGV[0]
 file = File.open(file_path)
 array = file.readline.split(' ').map(&:to_i)
 puts "Массив: #{array}"
 puts "Результат: #{reverse_between_min_max(array)}"
 puts "Результат: #{find_two_very_max_elements(array)}"
+puts "Результат: #{find_max_odd(array)}"
