@@ -17,11 +17,11 @@ class Student
 
   #валидаТОР профиля
   def self.valid_account?(account)
-    account.match(/^@[A-Za-z0-9-_]+$/)
+    account.match(/^@[A-Za-z0-9\-_]+$/)
   end
 
   def self.valid_email?(email)
-    email.match(/^[A-Za-z0-9-_]+@[A-Za-z]+\.([A-Za-z]+\.)*[A-Za-z]+$/)
+    email.match(/^[A-Za-z0-9\-_]+@[A-Za-z]+\.([A-Za-z]+\.)*[A-Za-z]+$/)
   end
   # конструктор
   def initialize(last_name, first_name, paternal_name, options = {})
@@ -37,42 +37,43 @@ class Student
 
   #сеттер
   def phone=(phone)
-    raise ArgumentError, 'Incorrect input!' unless Student.valid_phone?(phone)
+    raise ArgumentError, 'Incorrect input!' if !phone.nil? && !Student.valid_phone?(phone)
 
     @phone = phone
   end
 
   def first_name=(first_name)
-    raise ArgumentError, 'Incorrect input!' unless Student.valid_name?(first_name)
+    raise ArgumentError, 'Incorrect input!' if !first_name.nil? && !Student.valid_name?(first_name)
 
     @first_name = first_name
   end
 
-  def first_name=(last_name)
-    raise ArgumentError, 'Incorrect input!' unless Student.valid_name?(last_name)
+  def last_name=(last_name)
+    raise ArgumentError, 'Incorrect input!' if !last_name.nil? && !Student.valid_name?(last_name)
 
     @last_name = last_name
   end
 
   def paternal_name=(paternal_name)
-    raise ArgumentError, 'Incorrect input!' unless Student.valid_name?(paternal_name)
+    raise ArgumentError, 'Incorrect input!' if !paternal_name.nil? && !Student.valid_name?(paternal_name)
 
     @paternal_name = paternal_name
   end
 
   def git=(git)
-    raise ArgumentError, 'Incorrect input!' unless Student.valid_account?(git)
+    raise ArgumentError, 'Incorrect input!' if !git.nil? && !Student.valid_account?(git)
 
     @git = git
   end
 
   def telegram=(telegram)
-    raise ArgumentError, 'Incorrect input!' unless Student.valid_account?(telegram)
+    raise ArgumentError, 'Incorrect input!' if !telegram.nil? && !Student.valid_account?(telegram)
 
     @telegram = telegram
   end
+
   def email=(email)
-    raise ArgumentError, 'Incorrect input!' unless Student.valid_email?(email)
+    raise ArgumentError, 'Incorrect input!' if !email.nil? && !Student.valid_email?(email)
 
     @email = email
   end
@@ -87,6 +88,12 @@ class Student
 
   def validate
     git? && contact?
+  end
+
+  def set_contacts(contacts)
+    self.phone = contacts[:phone] if contacts.key?(:phone)
+    self.telegram = contacts[:telegram] if contacts.key?(:telegram)
+    self.email = contacts[:email] if contacts.key?(:email)
   end
   def to_s
     result = "#{last_name} #{first_name} #{paternal_name}"
