@@ -2,7 +2,13 @@
 
 class Student
   # стандартные геттеры и сеттеры для класса
-  attr_accessor :last_name, :first_name, :paternal_name, :id, :phone, :git, :telegram, :email
+  attr_accessor :last_name, :first_name, :paternal_name, :id, :git, :telegram, :email
+  attr_reader :phone
+
+  #валидаТОР номера телефона
+  def self.valid_phone?(phone)
+    phone.match(/^\+?[7,8] ?\(?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/)
+  end
 
   # конструктор
   def initialize(last_name, first_name, paternal_name, options = {})
@@ -16,6 +22,13 @@ class Student
     self.email = options[:email]
   end
 
+  #сеттер
+  def phone=(phone)
+    raise ArgumentError, 'Incorrect input!' unless Student.valid_phone?(phone)
+
+    @phone = phone
+  end
+
   def to_s
     result = "#{last_name} #{first_name} #{paternal_name}"
     result += " id=#{id}" unless id.nil?
@@ -25,4 +38,5 @@ class Student
     result += " email=#{email}" unless email.nil?
     result
   end
+
 end
