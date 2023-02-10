@@ -2,8 +2,8 @@
 
 class Student
   # стандартные геттеры и сеттеры для класса
-  attr_accessor :last_name, :first_name, :paternal_name, :id
-  attr_reader :phone, :git, :telegram, :email
+  attr_accessor :id
+  attr_reader :phone, :git, :telegram, :email, :last_name, :first_name, :paternal_name
 
   #валидаТОР номера телефона
   def self.valid_phone?(phone)
