@@ -99,13 +99,12 @@ class Student
     return "phone= #{phone}" unless phone.nil?
     return "telegram= #{telegram}" unless telegram.nil?
     return "email= #{email}" unless email.nil?
-    return "git= #{git}" unless git.nil?
 
     nil
   end
 
   def short_info
-    "#{short_name}, #{contact}"
+    "#{short_name}, #{contact}, git= #{git}"
   end
 
   def git?
