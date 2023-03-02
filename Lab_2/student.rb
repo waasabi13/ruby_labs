@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 class Student
   # стандартные геттеры и сеттеры для класса
   attr_accessor :id
@@ -35,7 +37,18 @@ class Student
     self.email = options[:email]
   end
 
-  #сеттер
+  # конструктор из json-строки
+  def self.init_from_json(str)
+    result = JSON.parse(str)
+    raise ArgumentError, 'Missing fields: last_name, first_name, paternal_name' unless result.key?('first_name') && result.key?('last_name') && result.key?('paternal_name')
+
+    last_name = result.delete('last_name')
+    first_name = result.delete('first_name')
+    paternal_name = result.delete('paternal_name')
+    Student.new(last_name, first_name, paternal_name, **result.transform_keys(&:to_sym))
+  end
+
+    #сеттер
   def phone=(phone)
     raise ArgumentError, "Incorrect value: phone=#{phone}!" if !phone.nil? && !Student.valid_phone?(phone)
 
