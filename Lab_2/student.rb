@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 require 'json'
+require_relative 'student_short'
 
-class Student
+class Student < StudentShort
   # стандартные геттеры и сеттеры для класса
-  attr_accessor :id
-  attr_reader :phone, :git, :telegram, :email, :last_name, :first_name, :paternal_name
+  attr_reader :phone, :telegram, :email, :first_name, :paternal_name, :last_name
+  attr_writer :id
+
 
   #валидаТОР номера телефона
   def self.valid_phone?(phone)
@@ -25,6 +27,7 @@ class Student
   def self.valid_email?(email)
     email.match(/^[A-Za-z0-9\-_]+@[A-Za-z]+\.([A-Za-z]+\.)*[A-Za-z]+$/)
   end
+
   # конструктор
   def initialize(last_name, first_name, paternal_name, options = {})
     self.last_name = last_name
@@ -91,10 +94,6 @@ class Student
     @email = email
   end
 
-  def short_name
-    "#{last_name} #{first_name[0]}. #{paternal_name[0]}."
-  end
-
   def contact
     return "phone= #{phone}" unless phone.nil?
     return "telegram= #{telegram}" unless telegram.nil?
@@ -104,7 +103,7 @@ class Student
   end
 
   def short_info
-    "#{short_name}, #{contact}, git= #{git}"
+    "#{last_name_and_initials}, #{contact}, git= #{git}"
   end
 
   def git?
@@ -124,6 +123,7 @@ class Student
     self.telegram = contacts[:telegram] if contacts.key?(:telegram)
     self.email = contacts[:email] if contacts.key?(:email)
   end
+
   def to_s
     result = "#{last_name} #{first_name} #{paternal_name}"
     result += " id=#{id}" unless id.nil?

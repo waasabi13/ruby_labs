@@ -6,7 +6,7 @@ class StudentShort
   attr_reader :id, :git, :contact
 
   def initialize(id, info_str)
-    self.id = id
+    @id = id
     result = JSON.parse(info_str)
     raise ArgumentError, 'Missing fields: last_name, first_name, paternal_name' unless result.key?('first_name') && result.key?('last_name') && result.key?('paternal_name')
 
