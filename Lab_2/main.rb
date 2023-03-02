@@ -24,3 +24,5 @@ puts student3.git?
 
 student1.set_contacts({telegram: '@waasabi13'})
 puts student1
+
+puts student5.short_info
