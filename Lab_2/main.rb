@@ -32,7 +32,9 @@ require_relative 'student_short'
 # puts st.last_name_and_initials
 
 student = Student.new('Пиндосов', 'Облом', 'Баракович', { id: 1, telegram: '@fakk_usa' })
-puts student.short_info
 
-st2 = StudentShort.from_student(student)
-puts st2.last_name_and_initials
+puts student.to_s
+#puts student.paternal_name
+
+# st2 = StudentShort.from_student(student)
+# puts st2.last_name_and_initials

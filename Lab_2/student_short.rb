@@ -21,6 +21,11 @@ class StudentShort
     StudentShort.new(student.id, JSON.generate(info))
   end
 
+  def set_contacts(contacts)
+    @contact = contacts['email'] if contacts.key?('email')
+    @contact = contacts['phone'] if contacts.key?('phone')
+    @contact = contacts['telegram'] if contacts.key?('telegram')
+  end
 
 
   def last_name_and_initials
@@ -31,10 +36,5 @@ class StudentShort
 
   attr_reader :last_name, :initials
 
-  def set_contacts(contacts)
-    return @contact = contacts['phone'] if contacts.key?('phone')
-    return @contact = contacts['telegram'] if contacts.key?('telegram')
 
-    @contact = contacts['email'] if contacts.key?('email')
-  end
 end

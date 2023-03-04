@@ -30,14 +30,10 @@ class Student < StudentShort
 
   # конструктор
   def initialize(last_name, first_name, paternal_name, options = {})
-    self.last_name = last_name
-    self.first_name = first_name
-    self.paternal_name = paternal_name
-    self.id = options[:id]
-    self.phone = options[:phone]
-    self.git = options[:git]
-    self.telegram = options[:telegram]
-    self.email = options[:email]
+    options[:last_name] = last_name
+    options[:first_name] = first_name
+    options[:paternal_name] = paternal_name
+    super(options[:id], JSON.generate(options))
   end
 
   # конструктор из json-строки
@@ -118,11 +114,11 @@ class Student < StudentShort
     git? && contact?
   end
 
-  def set_contacts(contacts)
-    self.phone = contacts[:phone] if contacts.key?(:phone)
-    self.telegram = contacts[:telegram] if contacts.key?(:telegram)
-    self.email = contacts[:email] if contacts.key?(:email)
-  end
+  # def set_contacts(contacts)
+  #   self.phone = contacts[:phone] if contacts.key?(:phone)
+  #   self.telegram = contacts[:telegram] if contacts.key?(:telegram)
+  #   self.email = contacts[:email] if contacts.key?(:email)
+  # end
 
   def to_s
     result = "#{last_name} #{first_name} #{paternal_name}"
