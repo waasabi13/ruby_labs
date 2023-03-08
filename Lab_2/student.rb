@@ -25,20 +25,20 @@ class Student
   def self.valid_email?(email)
     email.match(/^[A-Za-z0-9\-_]+@[A-Za-z]+\.([A-Za-z]+\.)*[A-Za-z]+$/)
   end
+
   # конструктор
-  def initialize(last_name, first_name, paternal_name, options = {})
+  def initialize(last_name, first_name, paternal_name, id: nil, git: nil, phone: nil, email: nil, telegram: nil)
     self.last_name = last_name
     self.first_name = first_name
     self.paternal_name = paternal_name
-    self.id = options[:id]
-    self.phone = options[:phone]
-    self.git = options[:git]
-    self.telegram = options[:telegram]
-    self.email = options[:email]
+    self.id = id
+    self.git = git
+    set_contacts(phone: phone, email: email, telegram: telegram)
   end
 
   # конструктор из json-строки
   def self.init_from_json(str)
+    # TODO: переписать
     result = JSON.parse(str)
     raise ArgumentError, 'Missing fields: last_name, first_name, paternal_name' unless result.key?('first_name') && result.key?('last_name') && result.key?('paternal_name')
 
@@ -95,14 +95,6 @@ class Student
     "#{last_name} #{first_name[0]}. #{paternal_name[0]}."
   end
 
-  def contact
-    return "phone= #{phone}" unless phone.nil?
-    return "telegram= #{telegram}" unless telegram.nil?
-    return "email= #{email}" unless email.nil?
-
-    nil
-  end
-
   def short_info
     "#{short_name}, #{contact}, git= #{git}"
   end
@@ -115,15 +107,30 @@ class Student
     !email.nil? || !phone.nil? || !telegram.nil?
   end
 
+  def contact
+    # TODO: протестировать!!!
+    #     # TODO: протестировать!!!
+    #     # TODO: протестировать!!!
+    #     # TODO: протестировать!!!
+    #     # TODO: протестировать!!!
+    #     # TODO: протестировать!!!
+    return @contact = "phone= #{phone}" unless phone.nil?
+    return @contact = "telegram= #{telegram}" unless telegram.nil?
+    return @contact = "email= #{email}" unless email.nil?
+
+    nil
+  end
+
   def validate
     git? && contact?
   end
 
-  def set_contacts(contacts)
-    self.phone = contacts[:phone] if contacts.key?(:phone)
-    self.telegram = contacts[:telegram] if contacts.key?(:telegram)
-    self.email = contacts[:email] if contacts.key?(:email)
+  def set_contacts(phone: nil, telegram: nil, email: nil)
+    self.phone = phone if phone
+    self.telegram = telegram if telegram
+    self.email = email if email
   end
+
   def to_s
     result = "#{last_name} #{first_name} #{paternal_name}"
     result += " id=#{id}" unless id.nil?
