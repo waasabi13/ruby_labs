@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'student'
+require_relative 'student_short'
 
 student1 = Student.new('Полетов', 'Разбор', 'Алексеевич')
 student2 = Student.new('Пиндосов', 'Облом', 'Баракович', { id: 1, telegram: '@fakk_usa' })
@@ -27,4 +28,7 @@ puts student1
 
 
 puts student5
+
+student6 = StudentShort.new(student5)
+puts student6.git.inspect
 

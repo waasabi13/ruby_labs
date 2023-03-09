@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 require 'json'
+require_relative 'student_short'
 
-class Student
+class Student < StudentShort
   # стандартные геттеры и сеттеры для класса
   attr_accessor :id
-  attr_reader :phone, :git, :telegram, :email, :last_name, :first_name, :paternal_name
+  attr_reader :phone, :telegram, :email, :last_name, :first_name, :paternal_name
 
   #валидаТОР номера телефона
   def self.valid_phone?(phone)

@@ -23,8 +23,7 @@
      +short_info(): String
      +contact()
      .. Геттеры ..
-     +id(): Integer
-     +git(): String
+
      +phone(): String
      +telegram(): String
      +email(): String
@@ -56,6 +55,9 @@ class StudentShort
     +set_contacts(String)
 .. Геттеры ..
     +last_name_and_initials(): String
+    +id(): Integer
+    +git(): String
+    +contact(): String
 }
 
 @enduml
