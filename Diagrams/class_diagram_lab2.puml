@@ -1,26 +1,27 @@
 @startuml
  'https://plantuml.com/class-diagram
 
- class Student {
-     -id: Integer
-     -last_name: String
+ class Student extends StudentShort {
      -first_name: String
      -paternal_name: String
      -phone: String
      -telegram: String
      -email: String
-     -git: String
 --
      +{static}valid_name?(String): Boolean
      +{static}valid_phone?(String): Boolean
      +{static}valid_account?(String): Boolean
      +{static}valid_email?(String): Boolean
-     +initialize(String, String, String, Hash)
+     +initialize(Str, Str, Str, Int, Str, Str, Str, Str)
+     +{static}init_from_json(String)
      +contact?(): Boolean
      +git?(): Boolean
      +validate(): Boolean
      +set_contacts(Hash)
      +to_s(): String
+     +short_name(): String
+     +short_info(): String
+     +contact()
      .. Геттеры ..
      +id(): Integer
      +git(): String
@@ -41,4 +42,20 @@
      +paternal_name=(String)
  }
 
- @enduml
+
+class StudentShort
+{
+    -last_name: String
+    -initials: String
+    -id: Integer
+    -git: String
+    -contact: String
+--
+    +initialize(Student)
+    +{static}from_str(id,str)
+    +set_contacts(String)
+.. Геттеры ..
+    +last_name_and_initials(): String
+}
+
+@enduml
