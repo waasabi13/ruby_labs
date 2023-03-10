@@ -1,0 +1,24 @@
+{
+	"StudentList": [{
+			"last_name": "Мавроди",
+			"first_name": "Сергей",
+			"paternal_name": "Пантелеевич",
+			"phone": "+78003535555",
+			"id": "35"
+		},
+		{
+			"last_name": "Дуров",
+			"first_name": "Павел",
+			"paternal_name": "Валерьевич",
+			"git": "@coo1_pr0gramm3r",
+			"id": "0"
+		},
+		{
+			"last_name": "Трамп",
+			"first_name": "Дональд",
+			"paternal_name": "Джон",
+			"id": "45",
+			"telegram": "@make_america_great_again"
+		}
+	]
+}

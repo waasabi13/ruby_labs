@@ -1,33 +1,22 @@
-# frozen_string_literal: true
-
 require_relative 'student'
 require_relative 'student_short'
 
-student1 = Student.new('Полетов', 'Разбор', 'Алексеевич')
-student2 = Student.new('Пиндосов', 'Облом', 'Баракович', { id: 1, telegram: '@fakk_usa' })
-student3 = Student.new('Атому', 'Ли', 'Ядала', { phone: '79181461800', email: 'goaloffway@mail.ru', git: '@vitaliyg' })
-student4 = Student.new('Гераклов', 'Поход', 'Подвигоевич', { id: 12, phone: '79698876534' })
-student5 = Student.new('Братанов', 'Друган', 'Кентович', { id: 77, phone: '+7 (777)-777-77-77' })
+def read_from_txt(file_path)
+  raise ArgumentError, 'File not found' unless File.exist?(file_path)
 
-puts student1
-puts student2
-puts student3
-puts student4
-puts student5
+  stud_file = File.open(file_path, 'r')
+  result = ''
+  stud_file.each do |line|
+    result << line
+  end
+  stud_file.close
+  students_list = []
+  stud_list = JSON.parse(result)
 
-puts Student.valid_phone?('79181461800')
-puts Student.valid_phone?('+9 (777)-777-77-77')
+  stud_list['StudentList'].each do |obj|
+    students_list << Student.init_from_json(obj.to_json)
+  end
+  students_list
+end
 
-puts Student.valid_account?('@r1411')
-puts Student.valid_email?('s0160151@edu.kubsu.ru')
-
-puts student3.git?
-
-
-puts student5
-
-student6 = StudentShort.new(student5)
-puts student6.git.inspect
-
-puts student6.contact?
-puts student1.contact?
+puts read_from_txt('/Users/kirilltitov/RubymineProjects/ruby_labs/Lab_2/student_list.txt')
