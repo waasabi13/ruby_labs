@@ -3,7 +3,7 @@ require 'json'
 
 class StudentShort
   # стандартные геттеры и сеттеры для класса
-  attr_reader :id, :git, :contact
+  attr_reader :id, :git, :contact, :last_name, :initials
 
   def initialize(student)
     @id = student.id
@@ -28,18 +28,19 @@ class StudentShort
     "#{@last_name} #{@initials}"
   end
 
-  private
-
-  def set_contacts(contacts)
-    # TODO: переписать
-    return @contact = contacts['phone'] if contacts.key?('phone')
-    return @contact = contacts['telegram'] if contacts.key?('telegram')
-    @contact = contacts['email'] if contacts.key?('email')
-  end
   def to_s
     result = last_name_and_initials
     result += " id= #{id} " unless id.nil?
     result += contact unless contact.nil?
     result
   end
+
+  private
+
+  # def set_contacts(contacts)
+  #   return @contact = contacts['phone'] if contacts.key?('phone')
+  #   return @contact = contacts['telegram'] if contacts.key?('telegram')
+  #   @contact = contacts['email'] if contacts.key?('email')
+  # end
+
 end

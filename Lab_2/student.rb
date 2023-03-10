@@ -5,8 +5,8 @@ require_relative 'student_short'
 
 class Student < StudentShort
   # стандартные геттеры и сеттеры для класса
-  attr_accessor :id
-  attr_reader :phone, :telegram, :email, :last_name, :first_name, :paternal_name
+  attr_writer :id
+  attr_reader :phone, :telegram, :email, :first_name, :paternal_name
 
   #валидаТОР номера телефона
   def self.valid_phone?(phone)
@@ -39,7 +39,6 @@ class Student < StudentShort
 
   # конструктор из json-строки
   def self.init_from_json(str)
-    # TODO: переписать
     result = JSON.parse(str)
     raise ArgumentError, 'Missing fields: last_name, first_name, paternal_name' unless result.key?('first_name') && result.key?('last_name') && result.key?('paternal_name')
 
@@ -92,7 +91,7 @@ class Student < StudentShort
     @email = email
   end
 
-  def short_name
+  def last_name_and_initials
     "#{last_name} #{first_name[0]}. #{paternal_name[0]}."
   end
 
@@ -109,12 +108,6 @@ class Student < StudentShort
   end
 
   def contact
-    # TODO: протестировать!!!
-    #     # TODO: протестировать!!!
-    #     # TODO: протестировать!!!
-    #     # TODO: протестировать!!!
-    #     # TODO: протестировать!!!
-    #     # TODO: протестировать!!!
     return @contact = "phone= #{phone}" unless phone.nil?
     return @contact = "telegram= #{telegram}" unless telegram.nil?
     return @contact = "email= #{email}" unless email.nil?

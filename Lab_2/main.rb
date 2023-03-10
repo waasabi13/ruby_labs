@@ -32,3 +32,6 @@ puts student5
 student6 = StudentShort.new(student5)
 puts student6.git.inspect
 
+puts student6.initials
+puts student5.last_name
+
