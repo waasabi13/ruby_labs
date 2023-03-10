@@ -2,9 +2,10 @@
 require 'json'
 
 class StudentShort
-  # стандартные геттеры и сеттеры для класса
+  # стандартные геттеры для класса
   attr_reader :id, :git, :contact, :last_name, :initials
 
+  # стандартный конструктор, принимающий аргументов экземпляр класса student
   def initialize(student)
     @id = student.id
 
@@ -14,6 +15,7 @@ class StudentShort
     @contact = student.contact
   end
 
+  # кастомный конструктор, принимающий на вход id и строку, которая содержит всю остальную инф-ю
   def self.from_str(id, str)
     result = JSON.parse(str)
     raise ArgumentError, 'Missing fields: last_name, first_name, paternal_name' unless result.key?('first_name') &&
@@ -24,10 +26,12 @@ class StudentShort
                                  email: result['email'],telegram: result['telegram']))
   end
 
+  # метод возвращающий фамилию и инициалы у объекта
   def last_name_and_initials
     "#{@last_name} #{@initials}"
   end
 
+  # метод возвращающий представление объекта в виде строки
   def to_s
     result = last_name_and_initials
     result += " id= #{id} " unless id.nil?

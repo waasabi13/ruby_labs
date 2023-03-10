@@ -8,26 +8,27 @@ class Student < StudentShort
   attr_writer :id
   attr_reader :phone, :telegram, :email, :first_name, :paternal_name
 
-  #валидаТОР номера телефона
+  # валидаТОР номера телефона
   def self.valid_phone?(phone)
     phone.match(/^\+?[7,8] ?\(?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/)
   end
 
-  #валидаТОР имени
+  # валидаТОР имени
   def self.valid_name?(name)
     name.match(/^[А-Я][а-я]+$/)
   end
 
-  #валидаТОР профиля
+  # валидаТОР профиля
   def self.valid_account?(account)
     account.match(/^@[A-Za-z0-9\-_]+$/)
   end
 
+  # валидаТОР почты
   def self.valid_email?(email)
     email.match(/^[A-Za-z0-9\-_]+@[A-Za-z]+\.([A-Za-z]+\.)*[A-Za-z]+$/)
   end
 
-  # конструктор
+  # стандартный конструктор
   def initialize(last_name, first_name, paternal_name, id: nil, git: nil, phone: nil, email: nil, telegram: nil)
     self.last_name = last_name
     self.first_name = first_name
@@ -48,7 +49,7 @@ class Student < StudentShort
     Student.new(last_name, first_name, paternal_name, **result.transform_keys(&:to_sym))
   end
 
-    #сеттер
+    #сеттеры
   def phone=(phone)
     raise ArgumentError, "Incorrect value: phone=#{phone}!" if !phone.nil? && !Student.valid_phone?(phone)
 
@@ -91,22 +92,29 @@ class Student < StudentShort
     @email = email
   end
 
+  # метод возвращающий фамилию и инициалы у объекта
   def last_name_and_initials
     "#{last_name} #{first_name[0]}. #{paternal_name[0]}."
   end
 
+  # метод возвращающий краткую инф-ю об объекте
   def short_info
     "#{short_name}, #{contact}, git= #{git}"
   end
 
+  # метод проверяющий наличие гита
   def git?
     !git.nil?
   end
 
+
+  # метод проверяющий наличие контакта
   def contact?
     !email.nil? || !phone.nil? || !telegram.nil?
   end
 
+
+  # метод устанавливающий контакт
   def contact
     return @contact = "phone= #{phone}" unless phone.nil?
     return @contact = "telegram= #{telegram}" unless telegram.nil?
@@ -125,6 +133,7 @@ class Student < StudentShort
     self.email = email if email
   end
 
+  # метод возвращающий представление объекта в виде строки
   def to_s
     result = "#{last_name} #{first_name} #{paternal_name}"
     result += " id=#{id}" unless id.nil?
