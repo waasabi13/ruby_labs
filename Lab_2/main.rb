@@ -23,15 +23,11 @@ puts Student.valid_email?('s0160151@edu.kubsu.ru')
 
 puts student3.git?
 
-student1.set_contacts({ telegram: '@waasabi13' })
-puts student1
-
 
 puts student5
 
 student6 = StudentShort.new(student5)
 puts student6.git.inspect
 
-puts student6.initials
-puts student5.last_name
-
+puts student6.contact?
+puts student1.contact?

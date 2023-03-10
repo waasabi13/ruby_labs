@@ -39,6 +39,20 @@ class StudentShort
     result
   end
 
+  # метод проверяющий наличие гита
+  def git?
+    !git.nil?
+  end
+
+  # метод проверяющий наличие контакта
+  def contact?
+    !contact.nil?
+  end
+
+  def validate
+    git? && contact?
+  end
+
   private
 
   # def set_contacts(contacts)

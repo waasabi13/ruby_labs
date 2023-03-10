@@ -102,17 +102,6 @@ class Student < StudentShort
     "#{short_name}, #{contact}, git= #{git}"
   end
 
-  # метод проверяющий наличие гита
-  def git?
-    !git.nil?
-  end
-
-
-  # метод проверяющий наличие контакта
-  def contact?
-    !email.nil? || !phone.nil? || !telegram.nil?
-  end
-
 
   # метод устанавливающий контакт
   def contact
@@ -123,9 +112,6 @@ class Student < StudentShort
     nil
   end
 
-  def validate
-    git? && contact?
-  end
 
   def set_contacts(phone: nil, telegram: nil, email: nil)
     self.phone = phone if phone

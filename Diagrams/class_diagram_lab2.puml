@@ -13,6 +13,9 @@ class StudentShort
     +{static}from_str(id,str)
     +to_s(): String
     +last_name_and_initials(): String
+    +contact?(): Boolean
+    +git?(): Boolean
+    +validate(): Boolean
 .. Геттеры ..
     +last_name(): String
     +initials(): String
@@ -21,44 +24,38 @@ class StudentShort
     +contact(): String
 }
 
- class Student extends StudentShort {
-     -first_name: String
-     -paternal_name: String
-     -phone: String
-     -telegram: String
-     -email: String
+class Student extends StudentShort {
+    -first_name: String
+    -paternal_name: String
+    -phone: String
+    -telegram: String
+    -email: String
 --
-     +{static}valid_name?(String): Boolean
-     +{static}valid_phone?(String): Boolean
-     +{static}valid_account?(String): Boolean
-     +{static}valid_email?(String): Boolean
-     +initialize(Str, Str, Str, Int, Str, Str, Str, Str)
-     +{static}init_from_json(String)
-     +contact?(): Boolean
-     +git?(): Boolean
-     +validate(): Boolean
-     +set_contacts(String, String, String)
-     +to_s(): String
-     +last_name_and_initials(): String
-     +short_info(): String
-     +contact()
-     .. Геттеры ..
-     +phone(): String
-     +telegram(): String
-     +email(): String
-     +first_name(): String
-     +paternal_name(): String
-     .. Сеттеры ..
-     +id=(Integer)
-     +git=(String)
-     +phone=(String)
-     +telegram=(String)
-     +email=(String)
-     +last_name=(String)
-     +first_name=(String)
-     +paternal_name=(String)
- }
-
-
-
+    +{static}valid_name?(String): Boolean
+    +{static}valid_phone?(String): Boolean
+    +{static}valid_account?(String): Boolean
+    +{static}valid_email?(String): Boolean
+    +initialize(Str, Str, Str, Int, Str, Str, Str, Str)
+    +{static}init_from_json(String)
+    +set_contacts(String, String, String)
+    +to_s(): String
+    +last_name_and_initials(): String
+    +short_info(): String
+    +contact()
+    .. Геттеры ..
+    +phone(): String
+    +telegram(): String
+    +email(): String
+    +first_name(): String
+    +paternal_name(): String
+    .. Сеттеры ..
+    +id=(Integer)
+    +git=(String)
+    +phone=(String)
+    +telegram=(String)
+    +email=(String)
+    +last_name=(String)
+    +first_name=(String)
+    +paternal_name=(String)
+}
 @enduml
