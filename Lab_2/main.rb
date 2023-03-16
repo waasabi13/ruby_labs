@@ -30,11 +30,16 @@ end
 
 student1 = Student.new('Полетов', 'Разбор', 'Алексеевич')
 student2 = Student.new('Пиндосов', 'Облом', 'Баракович', { id: 1, telegram: '@fakk_usa' })
-student3 = Student.new('Атому', 'Ли', 'Ядала', { phone: '79181461800', email: 'goaloffway@mail.ru', git: '@vitaliyg' })
+student3 = Student.new('Атому', 'Ли', 'Ядала', {email: 'goaloffway@mail.ru', git: '@vitaliyg' })
 student4 = Student.new('Гераклов', 'Поход', 'Подвигоевич', { id: 12, phone: '79698876534' })
 student5 = Student.new('Братанов', 'Друган', 'Кентович', { id: 77, phone: '+7 (777)-777-77-77' })
 
 student_list = [student1, student2, student3, student4, student5]
 
-puts read_from_txt('/Users/kirilltitov/RubymineProjects/ruby_labs/Lab_2/student_list.txt')
+#puts read_from_txt('/Users/kirilltitov/RubymineProjects/ruby_labs/Lab_2/student_list.txt')
 write_to_txt('/Users/kirilltitov/RubymineProjects/ruby_labs/Lab_2/new_student_list.txt', student_list)
+
+st_test = StudentShort.new(student3)
+
+puts st_test.contact
+

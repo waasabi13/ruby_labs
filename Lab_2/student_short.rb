@@ -12,7 +12,7 @@ class StudentShort
     @last_name = student.last_name
     @initials = "#{student.first_name[0]}. #{student.paternal_name[0]}."
     @git = student.git unless student.git.nil?
-    @contact = student.contact
+    @contact = student.set_contacts(phone: student.phone, email: student.email, telegram: student.telegram)
   end
 
   # кастомный конструктор, принимающий на вход id и строку, которая содержит всю остальную инф-ю
@@ -52,13 +52,5 @@ class StudentShort
   def validate
     git? && contact?
   end
-
-  private
-
-  # def set_contacts(contacts)
-  #   return @contact = contacts['phone'] if contacts.key?('phone')
-  #   return @contact = contacts['telegram'] if contacts.key?('telegram')
-  #   @contact = contacts['email'] if contacts.key?('email')
-  # end
 
 end
