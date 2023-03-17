@@ -41,13 +41,13 @@ class Student extends StudentShort {
     +to_s(): String
     +last_name_and_initials(): String
     +short_info(): String
-    +contact()
     .. Геттеры ..
     +phone(): String
     +telegram(): String
     +email(): String
     +first_name(): String
     +paternal_name(): String
+    -contact(): String
     .. Сеттеры ..
     +id=(Integer)
     +git=(String)
@@ -58,4 +58,15 @@ class Student extends StudentShort {
     +first_name=(String)
     +paternal_name=(String)
 }
+
+
+class DataTable
+{
++initialize(Table)
+..Геттеры..
+-table()
+..Сеттеры..
+-table()
+}
+
 @enduml
