@@ -62,11 +62,16 @@ class Student extends StudentShort {
 
 class DataTable
 {
-+initialize(Table)
-..Геттеры..
--table()
-..Сеттеры..
--table()
+    +initialize(Table)
+    +get_item(Integer,Integer): String
+    +to_s(): String
+    ..Геттеры..
+    -table()
+    +rows_count(): Integer
+    +cols_count(): Integer
+    ..Сеттеры..
+    -table()
+    -rows_count(): Integer
+    -cols_count(): Integer
 }
-
 @enduml

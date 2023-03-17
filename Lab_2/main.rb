@@ -47,3 +47,4 @@ end
 test = [[1, 'Test'], [2, 'tesT']]
 test_table = DataTable.new(test)
 puts test_table
+puts test_table.get_item(0, 1)
