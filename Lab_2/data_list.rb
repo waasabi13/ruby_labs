@@ -4,8 +4,6 @@ class DataList
 
   private_class_method :new
 
-
-
   def initialize(objects)
     self.objects_list = objects
     self.selected_objects = []
@@ -29,11 +27,29 @@ class DataList
     selected_id_list
   end
 
+  # шаблон
+  def get_data
+    result = []
+    id = 0
+    objects_list.each do |obj|
+      row = []
+      row << id
+      # * необходима так как, если нам передадут [1,2,3], то передастся row.push(1,2,3)
+      row.push(*table_fields(obj))
+      result << row
+      id += 1
+    end
+    DataTable.new(result)
+  end
+
   protected
 
   def get_names; end
 
-  def get_data; end
+  # теперь этот метод необходимо переопределять у наследников(если я правильно понял принцип паттерна)
+  def table_fields(object)
+    []
+  end
 
   private
 
