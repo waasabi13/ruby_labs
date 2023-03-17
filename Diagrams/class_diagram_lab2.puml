@@ -76,7 +76,7 @@ abstract class DataList
     -objects_list: Array
     ..Сеттеры..
     -selected_objects=(Array)
-    -objects_list=(Array)
+    +objects_list=(Array)
 
 }
 class DataTable
