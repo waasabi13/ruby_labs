@@ -59,7 +59,25 @@ class Student extends StudentShort {
     +paternal_name=(String)
 }
 
+abstract class DataList
+{
+    -selected_objects: Array
+    -objects_list: Array
+--
+    +initialize(Array)
+    +select(number): Array
+    +clear_select(): Array
+    +get_selected(Array): Array
+    #get_names()
+    #get_data(): Array
+    ..Геттеры..
+    -selected_objects: Array
+    -objects_list: Array
+    ..Сеттеры..
+    -selected_objects=(Array)
+    -objects_list=(Array)
 
+}
 class DataTable
 {
     -table: Array
@@ -78,4 +96,6 @@ class DataTable
     -rows_count=(Integer)
     -cols_count=(Integer)
 }
+
+DataList ..> DataTable
 @enduml
