@@ -107,4 +107,6 @@ class DataListStudentShort extends DataList{
  }
 
 DataList ..> DataTable
+
+DataListStudentShort o-- StudentShort
 @enduml

@@ -11,14 +11,17 @@ class DataList
     self.selected_objects = []
   end
 
+  # добавить айди в выборку
   def select(number)
     selected_objects.append(number)
   end
 
+  # очистить массив выборки
   def clear_select
     self.selected_objects = []
   end
 
+  # получить выделенные объекты
   def get_selected
     return [] if selected_objects.empty?
 
@@ -46,6 +49,7 @@ class DataList
 
   protected
 
+  # должен быть реализован в детях
   def get_names; end
 
   # теперь этот метод необходимо переопределять у наследников(если я правильно понял принцип паттерна)
