@@ -35,14 +35,14 @@ class DataList
   # шаблон
   def get_data
     result = []
-    id = 0
+    ind = 0
     objects_list.each do |obj|
       row = []
-      row << id
+      row << ind
       # * необходима так как, если нам передадут [1,2,3], то передастся row.push(1,2,3)
       row.push(*table_fields(obj))
       result << row
-      id += 1
+      ind += 1
     end
     DataTable.new(result)
   end
