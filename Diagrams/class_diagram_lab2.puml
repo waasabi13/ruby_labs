@@ -37,6 +37,7 @@ class Student extends StudentShort {
     +{static}valid_email?(String): Boolean
     +initialize(Str, Str, Str, Int, Str, Str, Str, Str)
     +{static}init_from_json(String)
+    +{static}from_hash(String)
     +set_contacts(String, String, String)
     +to_s(): String
     +last_name_and_initials(): String
@@ -104,6 +105,41 @@ class DataListStudentShort extends DataList{
      +get_names(): DataTable
     #table_fields(Object): Array
 
+ }
+
+
+abstract class StudentsListBase {
+     -students: Array
+     -cur_id: Integer
+     --
+     -initialize()
+     +load_from_file(String)
+     +save_to_file(String)
+     +student_by_id(Integer): Student
+     +student_by_name(String): Array
+     +k_n_student_short_list(Integer, Integer, DataList: nil): DataList
+     +sorted(): Array
+     +add_student(Student)
+     +replace_student(Integer, Student)
+     +remove_student(Integer)
+     +student_count(): Integer
+     #str_to_list(String): Array
+     #list_to_str(Array): String
+     -update_cur_id()
+     .. Геттеры ..
+     -students(): Array
+     -cur_id(): Integer
+     .. Сеттеры ..
+     -students=(Array)
+     -cur_id=(Integer)
+ }
+
+ class StudentsListTxt extends StudentsListBase {
+     --
+     -transform_to_hashes(String): Array
+     -transform_to_strings(Array): String
+     #str_to_list(String): Array
+     #list_to_str(Array): String
  }
 
 DataList ..> DataTable

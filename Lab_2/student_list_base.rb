@@ -1,0 +1,89 @@
+# frozen_string_literal: true
+
+class StudentListBase
+  private_class_method :new
+
+  # конструктор
+  def initialize
+    self.students = []
+    self.cur_id = 1
+  end
+
+  # загрузка из файла
+  def load_from_file(file_path)
+    list = str_to_list(File.read(file_path))
+    self.students = list.map { |h| Student.from_hash(h) }
+    update_cur_id
+  end
+
+  # выгрузка в файл
+  def save_to_file(file_path)
+    list = students.map(&:to_hash)
+    File.write(file_path, list_to_str(list))
+  end
+
+  # найти студента по айди
+  def student_by_id(student_id)
+    students.detect { |s| s.id == student_id }
+  end
+
+  # найти студента по фамилии и инциалам
+  def student_by_name(student_name)
+    students.filter { |s| s.last_name_and_initials == student_name }
+  end
+
+  # Получить page по счету count элементов (страница начинается с 1)
+  def k_n_student_short_list(page, count, current_data_list: nil)
+    offset = (page - 1) * count # сдвиг элементов массива
+    slice = students[offset, count].map { |s| StudentShort.new(s) }
+
+    return DataListStudentShort.new(slice) if current_data_list.nil?
+
+    current_data_list.append(slice)
+  end
+
+  # сортировка
+  def sorted
+    students.sort_by(&:last_name_and_initials)
+  end
+
+  # добавление студента
+  def add_student(student)
+    student.id = cur_id
+    students << student
+    self.cur_id += 1
+  end
+
+  # замена студента
+  def replace_student(student_id, student)
+    idx = student.find_index { |s| s.id == student_id }
+    students[idx] = student
+  end
+
+  # отчисление студента))
+  def remove_student(student_id)
+    students.reject! { |s| s.id == student_id }
+  end
+
+  # число студентов
+  def student_count
+    students.size
+  end
+
+  protected
+
+  # Паблон шаттерн
+  def str_to_list(str); end
+
+  def list_to_str(list); end
+
+  private
+
+  # Метод для обновлении информации в cur_id
+  def update_cur_id
+    self.cur_id = students.max_by(&:id).id + 1
+  end
+
+  # чтобы никто мне ничего не трогал в списке студентов
+  attr_accessor :students, :cur_id
+end
