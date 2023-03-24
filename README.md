@@ -1,5 +1,6 @@
 # ruby_labs
-![photo](https://www.meme-arsenal.com/memes/21697c52ba07ecc8c4d84d7e3ba536d6.jpg)
+<br>
+<img src="https://media.giphy.com/media/SWoSkN6DxTszqIKEqv/giphy.gif" alt="Coder GIF" width="500">
 
 
 ### Visitor count
