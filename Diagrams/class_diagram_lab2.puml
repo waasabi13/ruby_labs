@@ -148,6 +148,12 @@ abstract class StudentsListBase {
      #list_to_str(Array): String
  }
 
+ class StudentsListYaml extends StudentsListBase {
+     --
+     #str_to_list(String): Array
+     #list_to_str(Array): String
+ }
+
 DataList ..> DataTable
 
 DataListStudentShort o-- StudentShort
