@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'student_list_base'
+require_relative 'student_list_strategy'
 require 'json'
-class StudentListTxt < StudentListBase
+class StudentListTxt < StudentListStrategy
   public_class_method :new
 
   protected

@@ -1,17 +1,20 @@
 # frozen_string_literal: true
 
 class StudentListBase
-  private_class_method :new
+
+
+  attr_writer :data_type
 
   # конструктор
-  def initialize
+  def initialize(data_type)
     self.students = []
     self.cur_id = 1
+    self.data_type = data_type
   end
 
   # загрузка из файла
   def load_from_file(file_path)
-    list = str_to_list(File.read(file_path))
+    list = data_type.str_to_list(File.read(file_path))
     self.students = list.map { |h| Student.from_hash(h) }
     update_cur_id
   end
@@ -19,7 +22,7 @@ class StudentListBase
   # выгрузка в файл
   def save_to_file(file_path)
     list = students.map(&:to_hash)
-    File.write(file_path, list_to_str(list))
+    File.write(file_path, data_type.list_to_str(list))
   end
 
   # найти студента по айди
@@ -56,7 +59,7 @@ class StudentListBase
 
   # замена студента
   def replace_student(student_id, student)
-    idx = student.find_index { |s| s.id == student_id }
+    idx = students.find_index { |s| s.id == student_id }
     students[idx] = student
   end
 
@@ -70,14 +73,14 @@ class StudentListBase
     students.size
   end
 
+
   protected
 
-  # Паблон шаттерн
-  def str_to_list(str); end
-
-  def list_to_str(list); end
+  attr_accessor :students, :cur_id
 
   private
+
+  attr_reader :data_type
 
   # Метод для обновлении информации в cur_id
   def update_cur_id
@@ -85,5 +88,5 @@ class StudentListBase
   end
 
   # чтобы никто мне ничего не трогал в списке студентов
-  attr_accessor :students, :cur_id
+
 end

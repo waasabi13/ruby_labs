@@ -50,6 +50,15 @@ class Student < StudentShort
     Student.new(first_name, last_name, paternal_name, **hash)
   end
 
+  def to_hash
+    attrs = {}
+    %i[last_name first_name father_name id phone telegram email git].each do |attr|
+      attr_val = send(attr)
+      attrs[attr] = attr_val unless attr_val.nil?
+    end
+    attrs
+  end
+
   # конструктор из json-строки
   def self.init_from_json(str)
     params = JSON.parse(str, { symbolize_names: true })

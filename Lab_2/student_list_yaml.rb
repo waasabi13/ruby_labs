@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'student_list_base'
+require_relative 'student_list_strategy'
 require 'yaml'
 
-class StudentListYaml<StudentListBase
+class StudentListYaml<StudentListStrategy
   public_class_method :new
 
   protected
