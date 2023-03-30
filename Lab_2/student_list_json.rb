@@ -5,7 +5,6 @@ require 'json'
 class StudentListJSON < StudentListStrategy
   public_class_method :new
 
-  protected
 
   def str_to_list(str)
     JSON.parse(str, { symbolize_names: true })

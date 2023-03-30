@@ -52,7 +52,7 @@ class Student < StudentShort
 
   def to_hash
     attrs = {}
-    %i[last_name first_name father_name id phone telegram email git].each do |attr|
+    %i[last_name first_name paternal_name id phone telegram email git].each do |attr|
       attr_val = send(attr)
       attrs[attr] = attr_val unless attr_val.nil?
     end
@@ -79,7 +79,7 @@ class Student < StudentShort
   end
 
   def last_name=(last_name)
-    raise ArgumentError, "Incorrect value: last_name=#{last_name}!" if !last_name.nil? && !Student.valid_name?(last_name)
+    raise ArgumentError, "Incorrect value: last_name=#{last_name}" if !last_name.nil? && !Student.valid_name?(last_name)
 
     @last_name = last_name
   end

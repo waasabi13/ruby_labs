@@ -84,7 +84,7 @@ class StudentListBase
 
   # Метод для обновлении информации в cur_id
   def update_cur_id
-    self.cur_id = students.max_by(&:id).id + 1
+    self.cur_id = students.max_by(&:id).id.to_i + 1
   end
 
   # чтобы никто мне ничего не трогал в списке студентов

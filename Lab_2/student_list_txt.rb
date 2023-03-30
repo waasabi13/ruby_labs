@@ -5,10 +5,9 @@ require 'json'
 class StudentListTxt < StudentListStrategy
   public_class_method :new
 
-  protected
 
   def str_to_list(str)
-    transform_to_hashes(str.split("\n"))
+    transform_to_hashes(str.split("\n").map(&:chomp))
   end
 
   def list_to_str(list)
@@ -20,6 +19,7 @@ class StudentListTxt < StudentListStrategy
   def transform_to_hashes(list_of_strings)
     list_of_hashes = []
     list_of_strings.each do |string|
+      string = string.gsub('"', "")
       hash = {}
       string.split(',').each do |attribute|
         key, value = attribute.split(':').map(&:strip)
