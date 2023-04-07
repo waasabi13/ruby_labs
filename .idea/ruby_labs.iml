@@ -12,5 +12,6 @@
     <orderEntry type="jdk" jdkName="ruby-2.6.10-p210" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v1.17.2, ruby-2.6.10-p210) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.3.13, ruby-2.6.10-p210) [gem]" level="application" />
   </component>
 </module>
