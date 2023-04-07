@@ -1,3 +1,8 @@
+@startuml
+'https://plantuml.com/class-diagram
+ hide circle
+ skinparam linetype ortho
+
 class StudentShort
 {
     -last_name: String
@@ -154,7 +159,22 @@ class DataTransformerYAML extends StudentListStrategy {
      #str_to_list(String): Array
      #list_to_str(Array): String
  }
-
+class StudentsListDB {
+     -client: SQLite3::Client
+     --
+     +initialize()
+     +student_by_id(Integer): Student
+     +get_k_n_student_short_list(Integer, Integer): DataList
+     +add_student(Student)
+     +replace_student(Integer, Student)
+     +remove_student(Integer)
+     +student_count(): Integer
+     .. Геттеры ..
+     -students(): SQLite3::Client
+     .. Сеттеры ..
+     -students=(SQLite3::Client)
+ }
 DataList ..> DataTable
 StudentListBase *-- StudentListStrategy
 DataListStudentShort o-- StudentShort
+@enduml
