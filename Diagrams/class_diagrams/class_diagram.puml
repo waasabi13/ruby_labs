@@ -159,8 +159,18 @@ class DataTransformerYAML extends StudentListStrategy {
      #str_to_list(String): Array
      #list_to_str(Array): String
  }
-class StudentsListDB {
+class DBUniversity {
+     -instance_mutex: Mutex
+     -instance: DBUniversity
      -client: SQLite3::Client
+     --
+     +{static}instance(): DBUniversity
+     -initialize()
+     +prepare_exec(String, *Object): SQLite3::Result
+     +query(String): SQLite3::Result
+ }
+class StudentsListDB {
+     -client: DBUniversity
      --
      +initialize()
      +student_by_id(Integer): Student
@@ -170,11 +180,12 @@ class StudentsListDB {
      +remove_student(Integer)
      +student_count(): Integer
      .. Геттеры ..
-     -students(): SQLite3::Client
+     -students(): DBUniversity
      .. Сеттеры ..
-     -students=(SQLite3::Client)
+     -students=(DBUniversity)
  }
 DataList ..> DataTable
 StudentListBase *-- StudentListStrategy
 DataListStudentShort o-- StudentShort
+StudentsListDB o-- DBUniversity
 @enduml

@@ -3,6 +3,8 @@ require_relative 'models/student_short'
 require_relative 'repositories/containers/data_table'
 require 'yaml'
 require 'sqlite3'
+require_relative  'repositories/student_list_db'
+
 def read_from_txt(file_path)
   raise ArgumentError, 'File not found' unless File.exist?(file_path)
 
@@ -30,7 +32,5 @@ def write_to_txt(file_path, student_list)
   File.write(file_path, result)
 end
 
-db = SQLite3::Database.open './university.sqlite'
-sel = db.prepare "Select * from students"
-results = sel.execute
-results.each { |row| puts row.join "\s" }
+db = StudentsListDB.new
+puts db.student_count
