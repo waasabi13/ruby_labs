@@ -1,10 +1,12 @@
 require_relative 'db_university'
 class StudentsListDB
 
+  # новый конструктор
   def initialize
     self.client = DBUniversity.instance
   end
 
+  # вернуть студента по ид
   def student_by_id(student_id)
     hash = client.prepare_exec('SELECT * FROM students WHERE id = ?',student_id).first
     print(hash)
@@ -22,16 +24,19 @@ class StudentsListDB
     DataListStudentShort.new(slice)
   end
 
+  # добавление студента
   def add_student(student)
     stmt = client.prepare('insert into student (first_name, last_name, paternal_name, phone, telegram, mail, git) VALUES (?, ?, ?, ?, ?, ?, ?)')
     stmt.execute(*student_fields(student))
     self.client.query('SELECT seq from sqlite_sequence where name = "students"').first.first[1]
   end
 
+  # отчисление студента
   def remove_student(student_id)
     client.prepare_exec('DELETE FROM students WHERE id = ?', student_id)
   end
 
+  # обновление студента
   def replace_student(student_id, student)
     template = 'UPDATE students SET first_name=?, last_name=?, paternal_name=?, phone=?, telegram=?, mail=?, git=? WHERE id=?'
     client.prepare_exec(template, *student_fields(student), student_id)
