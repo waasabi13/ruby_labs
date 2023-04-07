@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'student_list_strategy'
+require_relative '../student_list_strategy'
 require 'json'
 class StudentListTxt < StudentListStrategy
   public_class_method :new

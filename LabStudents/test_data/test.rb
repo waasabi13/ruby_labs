@@ -1,10 +1,10 @@
-require_relative 'student'
-require_relative 'student_short'
-require_relative 'data_list_student_short'
-require_relative 'student_list_base'
-require_relative 'student_list_txt'
-require_relative 'student_list_json'
-require_relative 'student_list_yaml'
+require_relative '../models/student'
+require_relative '../models/student_short'
+require_relative '../repositories/containers/data_list_student_short'
+require_relative '../repositories/data_sources/student_list_base'
+require_relative '../repositories/data_sources/strategy/student_list_txt'
+require_relative '../repositories/data_sources/strategy/student_list_json'
+require_relative '../repositories/data_sources/strategy/student_list_yaml'
 require 'json'
 
 student1 = Student.new('Полетов', 'Разбор', 'Алексеевич')
@@ -22,9 +22,9 @@ stud_list_json.add_student(student2)
 stud_list_json.add_student(student3)
 stud_list_json.add_student(student4)
 stud_list_json.add_student(student5)
-stud_list_json.save_to_file('./Lab_2/students.json')
+stud_list_json.save_to_file('./LabStudents/test_data/students.json')
 
-stud_list_json.load_from_file('./Lab_2/students.json')
+stud_list_json.load_from_file('./LabStudents/test_data/students.json')
 
 puts "Успешно записано и прочитано #{stud_list_json.student_count} студентов:"
 
@@ -37,9 +37,9 @@ stud_list_yaml.add_student(student2)
 stud_list_yaml.add_student(student3)
 stud_list_yaml.add_student(student4)
 stud_list_yaml.add_student(student5)
-stud_list_yaml.save_to_file('./Lab_2/students.yaml')
+stud_list_yaml.save_to_file('./LabStudents/test_data/students.yaml')
 
-stud_list_yaml.load_from_file('./Lab_2/students.yaml')
+stud_list_yaml.load_from_file('./LabStudents/test_data/students.yaml')
 
 puts "Успешно записано и прочитано #{stud_list_yaml.student_count} студентов:"
 
@@ -53,8 +53,8 @@ stud_list_txt.add_student(student2)
 stud_list_txt.add_student(student3)
 stud_list_txt.add_student(student4)
 stud_list_txt.add_student(student5)
-stud_list_txt.save_to_file('./Lab_2/students.txt')
+stud_list_txt.save_to_file('./LabStudents/test_data/students.txt')
 
-stud_list_txt.load_from_file('./Lab_2/students.txt')
+stud_list_txt.load_from_file('./LabStudents/test_data/students.txt')
 
 puts "Успешно записано и прочитано #{stud_list_txt.student_count} студентов:"

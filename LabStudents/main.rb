@@ -1,6 +1,6 @@
-require_relative 'student'
-require_relative 'student_short'
-require_relative 'data_table'
+require_relative 'models/student'
+require_relative 'models/student_short'
+require_relative 'repositories/containers/data_table'
 
 def read_from_txt(file_path)
   raise ArgumentError, 'File not found' unless File.exist?(file_path)
@@ -37,8 +37,8 @@ end
 #
 # student_list = [student1, student2, student3, student4, student5]
 #
-# #puts read_from_txt('/Users/kirilltitov/RubymineProjects/ruby_labs/Lab_2/student_list.txt')
-# write_to_txt('/Users/kirilltitov/RubymineProjects/ruby_labs/Lab_2/new_student_list.txt', student_list)
+# #puts read_from_txt('/Users/kirilltitov/RubymineProjects/ruby_labs/LabStudents/student_list.txt')
+# write_to_txt('/Users/kirilltitov/RubymineProjects/ruby_labs/LabStudents/new_student_list.txt', student_list)
 #
 # st_test = StudentShort.new(student3)
 #
