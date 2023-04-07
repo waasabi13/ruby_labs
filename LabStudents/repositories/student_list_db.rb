@@ -26,9 +26,7 @@ class StudentsListDB
 
   # добавление студента
   def add_student(student)
-    stmt = client.prepare('insert into student (first_name, last_name, paternal_name, phone, telegram, mail, git) VALUES (?, ?, ?, ?, ?, ?, ?)')
-    stmt.execute(*student_fields(student))
-    self.client.query('SELECT seq from sqlite_sequence where name = "students"').first.first[1]
+    stmt = client.prepare_exec('insert into students (first_name, last_name, paternal_name, phone, telegram, email, git) VALUES (?, ?, ?, ?, ?, ?, ?)', *student_fields(student))
   end
 
   # отчисление студента
@@ -38,7 +36,7 @@ class StudentsListDB
 
   # обновление студента
   def replace_student(student_id, student)
-    template = 'UPDATE students SET first_name=?, last_name=?, paternal_name=?, phone=?, telegram=?, mail=?, git=? WHERE id=?'
+    template = 'UPDATE students SET first_name=?, last_name=?, paternal_name=?, phone=?, telegram=?, email=?, git=? WHERE id=?'
     client.prepare_exec(template, *student_fields(student), student_id)
 
   end
@@ -53,6 +51,6 @@ class StudentsListDB
   attr_accessor :client
 
   def student_fields(student)
-    [student.first_name, student.last_name,  student.paternal_name, student.phone, student.telegram, student.mail, student.git]
+    [student.first_name, student.last_name,  student.paternal_name, student.phone, student.telegram, student.email, student.git]
   end
 end

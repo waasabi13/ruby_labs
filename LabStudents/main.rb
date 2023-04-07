@@ -33,4 +33,6 @@ def write_to_txt(file_path, student_list)
 end
 
 db = StudentsListDB.new
+student = Student.new('Гераклов', 'Поход', 'Подвигоевич', {phone: '79698876534' })
+db.add_student(student)
 puts db.student_count
