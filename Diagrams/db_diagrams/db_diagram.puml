@@ -1,0 +1,17 @@
+@startuml
+ 'https://plantuml.com/class-diagram
+ hide circle
+ skinparam linetype ortho
+
+ entity "Student" as Student {
+   *id: Integer <<GENERATED>>
+   --
+   first_name: varchar
+   last_name: varchar
+   paternal_name: varchar
+   phone: varchar
+   telegram: varchar
+   mail: varchar
+   git: varchar
+ }
+@enduml
