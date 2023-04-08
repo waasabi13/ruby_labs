@@ -1,4 +1,5 @@
 require_relative 'db_university'
+require 'json'
 class StudentsListDB
 
   # новый конструктор
@@ -6,13 +7,23 @@ class StudentsListDB
     self.client = DBUniversity.instance
   end
 
+  def from_array_to_hash(arr)
+    attrs = {}
+    i=0
+    %i[id last_name first_name paternal_name phone telegram email git].each do |attr|
+      attrs[attr] = arr[i] unless arr[i].nil?
+      i=i+1
+    end
+    attrs
+  end
+
   # вернуть студента по ид
   def student_by_id(student_id)
     hash = client.prepare_exec('SELECT * FROM students WHERE id = ?',student_id).first
-    print(hash)
+    hash = from_array_to_hash(hash)
     return nil if hash.nil?
 
-    Student.from_hash(hash)
+    Student.from_hash(hash).to_s
 
   end
 

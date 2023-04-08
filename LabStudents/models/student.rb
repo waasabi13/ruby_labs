@@ -47,7 +47,7 @@ class Student < StudentShort
     last_name = hash.delete(:last_name)
     paternal_name = hash.delete(:paternal_name)
 
-    Student.new(first_name, last_name, paternal_name, **hash)
+    Student.new(last_name, first_name,  paternal_name, **hash)
   end
 
   def to_hash
