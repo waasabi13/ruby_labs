@@ -1,6 +1,6 @@
 require_relative 'db_university'
 require 'json'
-class StudentsListDB
+class StudentListDbAdapter
 
   # новый конструктор
   def initialize
@@ -27,7 +27,7 @@ class StudentsListDB
 
   end
 
-  def get_k_n_student_short_list(k,n)
+  def k_n_student_short_list(k,n)
 
     students = client.prepare_exec('SELECT * FROM students LIMIT ? OFFSET ?',(k-1)*n,n)
     slice = students.map { |h| StudentShort.new(Student.from_hash(h)) }

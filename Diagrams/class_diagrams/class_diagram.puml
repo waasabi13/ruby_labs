@@ -113,6 +113,7 @@ class DataListStudentShort extends DataList{
 abstract class StudentListBase {
      -students: Array
      -cur_id: Integer
+     -data_type: StudentListStrategy
      --
      -initialize()
      +load_from_file(String)
@@ -136,6 +137,7 @@ abstract class StudentListBase {
 
 class StudentListStrategy {
     --
+    -initiliaze()
     #str_to_list(String)
     #list_to_str(Array)
 }
@@ -169,12 +171,12 @@ class DBUniversity {
      +prepare_exec(String, *Object): SQLite3::Result
      +query(String): SQLite3::Result
  }
-class StudentsListDB {
+class StudentListDBAdapter {
      -client: DBUniversity
      --
      +initialize()
      +student_by_id(Integer): Student
-     +get_k_n_student_short_list(Integer, Integer): DataList
+     +k_n_student_short_list(Integer, Integer): DataList
      +add_student(Student)
      +replace_student(Integer, Student)
      +remove_student(Integer)
@@ -184,8 +186,35 @@ class StudentsListDB {
      .. Сеттеры ..
      -students=(DBUniversity)
  }
+
+class StudentList {
+-data_adapter
+     +initialize()
+     +student_by_id(Integer): Student
+     +k_n_student_short_list(Integer, Integer): DataList
+     +add_student(Student)
+     +replace_student(Integer, Student)
+     +remove_student(Integer)
+     +student_count(): Integer
+}
+
+class StudentListFileAdapter {
+-file: StudentListBase
+-file_path: String
+     +initialize()
+     +student_by_id(Integer): Student
+     +k_n_student_short_list(Integer, Integer): DataList
+     +add_student(Student)
+     +replace_student(Integer, Student)
+     +remove_student(Integer)
+     +student_count(): Integer
+}
 DataList ..> DataTable
+StudentListBase ..> DataListStudentShort
 StudentListBase *-- StudentListStrategy
 DataListStudentShort o-- StudentShort
-StudentsListDB o-- DBUniversity
+StudentListDBAdapter o-- DBUniversity
+StudentList *-- StudentListDBAdapter
+StudentListFileAdapter o-- StudentListBase
+StudentList *-- StudentListFileAdapter
 @enduml

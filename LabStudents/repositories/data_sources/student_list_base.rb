@@ -36,10 +36,9 @@ class StudentListBase
   end
 
   # Получить page по счету count элементов (страница начинается с 1)
-  def k_n_student_short_list(page, count, current_data_list: nil)
+  def k_n_student_short_list(page, count, current_data_list)
     offset = (page - 1) * count # сдвиг элементов массива
     slice = students[offset, count].map { |s| StudentShort.new(s) }
-
     return DataListStudentShort.new(slice) if current_data_list.nil?
 
     current_data_list.append(slice)
