@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require_relative '/data_sources/student_list_base'
+require_relative 'data_sources/student_list_base'
+
 class StudentListFileAdapter
   def initialize(data_type, file_path)
     @file = StudentListBase.new(data_type)
@@ -25,7 +26,7 @@ class StudentListFileAdapter
 
   #замена студента по id
   def replace_student(student_id, student)
-    @file.replace_student(student,student_id)
+    @file.replace_student(student_id,student)
     @file.save_to_file(@file_path)
   end
 
@@ -34,8 +35,8 @@ class StudentListFileAdapter
     @file.student_count
   end
 
-  #полуение n элементов page страницы
-  def k_n_student_short_list(page,n, data_list:nil)
-    @file.k_n_student_short_list(page, n, data_list)
+  #получение n элементов k страницы
+  def k_n_student_short_list(k,n, data_list:nil)
+    @file.k_n_student_short_list(k, n, data_list)
   end
 end
