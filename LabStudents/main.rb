@@ -1,9 +1,10 @@
 require_relative 'models/student'
 require_relative 'models/student_short'
 require_relative 'repositories/containers/data_table'
+require_relative 'repositories/student_list_db_adapter'
+require_relative 'gui/main_window'
 require 'yaml'
 require 'sqlite3'
-require_relative 'repositories/student_list_db_adapter'
 
 def read_from_txt(file_path)
   raise ArgumentError, 'File not found' unless File.exist?(file_path)
@@ -32,8 +33,5 @@ def write_to_txt(file_path, student_list)
   File.write(file_path, result)
 end
 
-db = StudentListDbAdapter.new
-student = Student.new('Гераклов', 'Поход', 'Подвигоевич', {phone: '79698876534' })
-#db.add_student(student)
-puts db.student_by_id(4)
-puts db.student_count
+main_window = MainWindow.new.create
+main_window.show

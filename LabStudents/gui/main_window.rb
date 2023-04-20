@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+require 'glimmer-dsl-libui'
+require_relative 'logic_window'
+
+class MainWindow
+  include Glimmer
+  def create
+    window('Универ', 1000, 500) {
+      margined true
+      tab {
+        tab_item('Студенты') {
+
+          logic_window
+        }
+
+        tab_item('Вкладка 2') { }
+        tab_item('Вкладка 3') { }
+      }
+    }
+  end
+end
