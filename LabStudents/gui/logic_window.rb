@@ -3,6 +3,7 @@
 class LogicWindow
   include Glimmer::LibUI::CustomControl
 
+
   body {
     horizontal_box {
 
@@ -49,22 +50,30 @@ class LogicWindow
 
       #2 область
       vertical_box {
+        stretchy true
         @table = table {
-
-          text_column('Фамилия И. О.')
-          text_column('Контакт')
-          text_column('Гит')
+          text_column('Фамилия И. О.') {
+            on_clicked do
+              sort_by_column(0)
+            end
+          }
+          text_column('Гит') {
+            on_clicked do
+              sort_by_column(2)
+            end
+          }
+          text_column('Контакт') {
+            on_clicked do
+              sort_by_column(1)
+            end
+          }
 
           editable false
-        }
 
-        @pages = horizontal_box {
-          stretchy false
-
-          button('1')
-          button('2')
-          label('...') { stretchy false }
-          button('15')
+          cell_rows [['Манукьян А. В.', '@narot', '+79181111111'],
+                     ['Головий В. А.', nil, nil],
+                     ['Еремин Р. В.', '@r1411', 'zubrila@mail.ru'],
+                     ['Цветков К. А.', '@frog', '@i_<3_tihoretsk']]
         }
       }
 
@@ -79,4 +88,18 @@ class LogicWindow
       }
     }
   }
+  private
+
+  def sort_by_column(column_index)
+    data = @table.cell_rows
+    if @sort_column == column_index
+      data.reverse!
+      @sort_order = (@sort_order == :asc) ? :desc : :asc
+    else
+      @sort_column = column_index
+      @sort_order = :asc
+      data.sort_by! { |row| row[column_index].to_s }
+    end
+    @table.cell_rows = data
+  end
 end

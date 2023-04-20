@@ -6,7 +6,7 @@ require_relative 'logic_window'
 class MainWindow
   include Glimmer
   def create
-    window('Универ', 1000, 500) {
+    window('Универ', 1200, 700) {
       margined true
       tab {
         tab_item('Студенты') {
