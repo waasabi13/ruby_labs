@@ -1,5 +1,6 @@
 require_relative 'db_university'
 require 'json'
+require 'sqlite3'
 class StudentListDbAdapter
 
   # новый конструктор
