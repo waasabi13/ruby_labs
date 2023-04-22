@@ -28,12 +28,19 @@ class StudentListDbAdapter
 
   end
 
-  def k_n_student_short_list(k,n)
+  def k_n_student_short_list(k,n, data_list=nil)
 
-    students = client.prepare_exec('SELECT * FROM students LIMIT ? OFFSET ?',(k-1)*n,n)
-    slice = students.map { |h| StudentShort.new(Student.from_hash(h)) }
+    offset = (k - 1) * n
+    students = client.prepare_exec('SELECT * FROM students LIMIT ?, ?', offset, n)
 
-    DataListStudentShort.new(slice)
+    slice = students.map { |h|
+      h = h.transform_keys(&:to_sym)
+      StudentShort.new(Student.from_hash(h))
+    }
+    return DataListStudentShort.new(slice) if data_list.nil?
+
+    data_list.replace_objects(slice)
+    data_list
   end
 
   # добавление студента

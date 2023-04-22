@@ -10,6 +10,18 @@ class DataList
   def initialize(objects)
     self.objects_list = objects
     self.selected_objects = []
+    @observers = []
+  end
+
+  def add_observer(observer)
+    @observers.append(observer)
+  end
+
+  def remove_observer(observer)
+    @observers.delete(observer)
+  end
+  def notify
+    @observers.each { |observer| observer.on_datalist_changed(get_data) }
   end
 
   # добавить айди в выборку
@@ -46,6 +58,12 @@ class DataList
       ind += 1
     end
     DataTable.new(result)
+  end
+
+
+  def replace_objects(objects)
+    self.objects_list = objects.dup
+    notify
   end
 
   protected

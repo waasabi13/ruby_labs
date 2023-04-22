@@ -22,6 +22,10 @@ class DataTable
     table[row][col]
   end
 
+  def to_my_array
+    table.dup
+  end
+
   def to_s
     table.map { |row| "[#{row.join(', ')}]" }.join("\n")
   end
