@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require_relative '../controllers/student_list_controller'
 require_relative '../repositories/containers/data_table'
+require_relative 'student_create_form'
 class LogicWindow
   include Glimmer
 
@@ -113,21 +114,28 @@ class LogicWindow
           }
         }
 
-        # 3 область
-        vertical_box{
-          stretchy true
+        #3 область
+        vertical_box {
+          #stretchy false
 
-          button('Добавить') { stretchy false }
+          button('Добавить') {
+            stretchy false
+
+            on_clicked {
+              StudentCreateForm.new.create.show
+            }
+          }
           button('Изменить') { stretchy false }
           button('Удалить') { stretchy false }
           button('Обновить') {
             stretchy false
+
             on_clicked {
               @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
             }
           }
         }
-      }
+    }
     on_create
     root_container
   end
