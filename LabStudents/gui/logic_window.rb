@@ -77,6 +77,10 @@ class LogicWindow
           stretchy true
           @table = refined_table(
             table_editable: false,
+            filter: lambda do |row_hash, query|
+              utf8_query = query.force_encoding("utf-8")
+              row_hash['Фамилия И. О'].include?(utf8_query)
+            end,
             table_columns: {
               '#' => :text,
               'Фамилия И. О' => :text,
@@ -116,10 +120,11 @@ class LogicWindow
           button('Добавить') { stretchy false }
           button('Изменить') { stretchy false }
           button('Удалить') { stretchy false }
-          button('Обновить') { stretchy false
-          on_clicked do
-            puts 123
-          end
+          button('Обновить') {
+            stretchy false
+            on_clicked {
+              @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
+            }
           }
         }
       }
