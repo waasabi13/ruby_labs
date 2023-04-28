@@ -1,0 +1,74 @@
+@startuml
+ participant "main.rb"                       as main
+
+
+
+
+ boundary    "mw: MainWindow"                as mw
+ boundary    "lw: LogicWindow"               as lw
+ control     "slc: StudentsListController"    as slc
+ entity      "dlss: DataListStudentShort"    as dlss
+ entity      "sl: StudentList"       as sl
+ entity      "sldba: StudentListDBAdapter"         as sldba
+ entity      "dbu: DBUniversity"            as dbu
+
+ database    DB                              as db
+
+ main -> mw : <<new>>
+ mw -> lw : <<new>>
+ lw -> slc : <<new>>(self)
+ slc -> dlss : <<new>>(Array)
+ dlss --> slc
+ slc -> dlss : add_observer(LogicWindow)
+ dlss --> slc
+ slc --> lw
+ lw --> mw
+ mw --> main
+
+ main -> mw : create()
+ mw -> lw : create()
+ lw -> slc : on_view_created()
+ slc -> sldba : <<new>>
+ sldba -> dbu : <<instance>>
+ dbu -> dbu : <<new>>
+ dbu -> db : [connect]
+ db --> dbu
+ dbu --> sldba
+ sldba --> slc
+ slc -> sl : <<new>>(StudentListDBAdapter)
+ sl --> slc
+ slc --> lw
+
+ lw -> slc : refresh_data(Integer, Integer)
+ slc -> sl : k_n_student_short_list(Integer, Integer, DataListStudentShort)
+ sl -> sldba : k_n_student_short_list(Integer, Integer, DataListStudentShort)
+ sldba -> dbu : prepare_exec(String, Integer, Integer)
+ dbu -> db : [SELECT]
+ db --> dbu
+ dbu --> sldba
+ sldba -> dlss : <<new>>(Array)
+ dlss --> sldba
+ sldba -> dlss : replace_objects(Array)
+ dlss -> lw : on_datalist_changed(DataTable)
+ lw --> dlss
+ dlss --> sldba
+ sldba --> sl
+ sl --> slc
+
+ slc -> sl : student_count()
+ sl -> sldba : student_count()
+ sldba -> dbu: query(String)
+ dbu -> db : [SELECT]
+ db --> dbu
+ dbu --> sldba
+ sldba --> sl
+ sl --> slc
+ slc -> lw : update_student_count(Integer)
+ lw --> slc
+ slc --> lw
+ lw --> mw
+ mw --> main
+
+
+
+ @enduml

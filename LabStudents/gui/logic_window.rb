@@ -87,7 +87,6 @@ class LogicWindow
               'Гит' => :text,
               'Контакт' => :text
             }
-
           )
 
           @pages = horizontal_box {
