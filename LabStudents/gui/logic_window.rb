@@ -87,6 +87,7 @@ class LogicWindow
               'Гит' => :text,
               'Контакт' => :text
             }
+
           )
 
           @pages = horizontal_box {
@@ -136,15 +137,15 @@ class LogicWindow
   private
 
   def sort_by_column(column_index)
-    data = @table.cell_rows
-    if @sort_column == column_index
-      data.reverse!
-      @sort_order = (@sort_order == :asc) ? :desc : :asc
-    else
-      @sort_column = column_index
-      @sort_order = :asc
-      data.sort_by! { |row| row[column_index].to_s }
-    end
-    @table.cell_rows = data
+      data = @table.cell_rows
+      if @sort_column == column_index
+        data.reverse!
+        @sort_order = (@sort_order == :asc) ? :desc : :asc
+      else
+        @sort_column = column_index
+        @sort_order = :asc
+        data.sort_by! { |row| row[column_index].to_s }
+      end
+      @table.cell_rows = data
   end
 end
