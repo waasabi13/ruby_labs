@@ -1,15 +1,35 @@
 # frozen_string_literal: true
 require_relative '../controllers/student_list_controller'
-
+require_relative '../repositories/containers/data_table'
 class LogicWindow
   include Glimmer
 
+  STUDENTS_PER_PAGE = 15
+
   def initialize
     @controller = StudentListController.new(self)
+    @current_page = 1
+    @total_count = 0
+  end
+
+  def on_create
+    @controller.on_view_created
+    @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
+  end
+
+  def on_datalist_changed(new_table)
+    arr = new_table.to_my_array
+    arr.map { |row| row[3] = [row[3][:phone] || row[3][:telegram] || row[3][:email]] }
+    @table.model_array = arr
+  end
+
+  def update_student_count(new_cnt)
+    @total_count = new_cnt
+    @page_label.text = "#{@current_page} / #{(@total_count / STUDENTS_PER_PAGE.to_f).ceil}"
   end
 
   def create
-      horizontal_box {
+    root_container = horizontal_box {
 
         # 1 область
         vertical_box {
@@ -55,44 +75,58 @@ class LogicWindow
         #2 область
         vertical_box {
           stretchy true
-          @table = table {
-            text_column('Фамилия И. О.') {
-              on_clicked do
-                sort_by_column(0)
-              end
+          @table = refined_table(
+            table_editable: false,
+            table_columns: {
+              '#' => :text,
+              'Фамилия И. О' => :text,
+              'Гит' => :text,
+              'Контакт' => :text
             }
-            text_column('Гит') {
-              on_clicked do
-                sort_by_column(2)
-              end
-            }
-            text_column('Контакт') {
-              on_clicked do
-                sort_by_column(1)
-              end
-            }
+          )
 
-            editable false
+          @pages = horizontal_box {
+            stretchy false
 
-            cell_rows [['Манукьян А. В.', '@narot', '+79181111111'],
-                       ['Головий В. А.', nil, nil],
-                       ['Еремин Р. В.', '@r1411', 'zubrila@mail.ru'],
-                       ['Цветков К. А.', '@frog', '@i_<3_tihoretsk']]
+            button("<") {
+              stretchy true
+
+              on_clicked do
+                @current_page = [@current_page - 1, 1].max
+                @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
+              end
+
+            }
+            @page_label = label("...") { stretchy false }
+            button(">") {
+              stretchy true
+
+              on_clicked do
+                @current_page = [@current_page + 1, (@total_count / STUDENTS_PER_PAGE.to_f).ceil].min
+                @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
+              end
+            }
           }
         }
 
         # 3 область
-        vertical_box
+        vertical_box{
           stretchy true
 
           button('Добавить') { stretchy false }
           button('Изменить') { stretchy false }
           button('Удалить') { stretchy false }
-          button('Обновить') { stretchy false }
+          button('Обновить') { stretchy false
+          on_clicked do
+            puts 123
+          end
+          }
         }
       }
-
+    on_create
+    root_container
   end
+
 
   private
 
