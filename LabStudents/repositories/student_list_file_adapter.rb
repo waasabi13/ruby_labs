@@ -36,7 +36,7 @@ class StudentListFileAdapter
   end
 
   #получение n элементов k страницы
-  def k_n_student_short_list(k,n, data_list:nil)
+  def k_n_student_short_list(k,n, data_list)
     @file.k_n_student_short_list(k, n, data_list)
   end
 end

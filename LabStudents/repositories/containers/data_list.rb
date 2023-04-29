@@ -47,17 +47,16 @@ class DataList
 
   # шаблон
   def get_data
-    result = []
-    ind = 0
-    objects_list.each do |obj|
-      row = []
-      row << ind
-      # * необходима так как, если нам передадут [1,2,3], то передастся row.push(1,2,3)
-      row.push(*table_fields(obj))
-      result << row
-      ind += 1
+    index_id=0
+    puts objects_list.to_s
+    puts objects_list.class
+    dt = objects_list.inject([]) do |res, object|
+      row=[index_id]
+      row.append(*table_fields(object))
+      index_id+=1
+      res<<row
     end
-    DataTable.new(result)
+    DataTable.new(dt)
   end
 
 
