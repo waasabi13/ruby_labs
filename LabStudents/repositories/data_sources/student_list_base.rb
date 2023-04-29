@@ -40,7 +40,7 @@ class StudentListBase
     page_list = students[(page-1)*n, n].map{|st| StudentShort.new(st)}
     return DataListStudentShort.new(page_list) if data_list.nil?
 
-    data_list.replace_objects(page)
+    data_list.replace_objects(page_list)
     data_list
   end
 
