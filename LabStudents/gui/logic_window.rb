@@ -5,7 +5,7 @@ require_relative 'student_create_form'
 class LogicWindow
   include Glimmer
 
-  STUDENTS_PER_PAGE = 15
+  STUDENTS_PER_PAGE = 10
 
   def initialize
     @controller = StudentListController.new(self)
@@ -75,7 +75,7 @@ class LogicWindow
 
         #2 область
         vertical_box {
-          stretchy true
+          stretchy false
           @table = refined_table(
             table_editable: false,
             filter: lambda do |row_hash, query|
@@ -87,7 +87,7 @@ class LogicWindow
               'Фамилия И. О' => :text,
               'Гит' => :text,
               'Контакт' => :text
-            }
+            },
           )
 
           @pages = horizontal_box {
@@ -116,13 +116,15 @@ class LogicWindow
 
         #3 область
         vertical_box {
-          #stretchy false
+          stretchy false
 
           button('Добавить') {
             stretchy false
 
             on_clicked {
-              StudentCreateForm.new.create.show
+              #TO DO не делать тут логику
+                StudentCreateForm.new.create.show
+              #@controller.
             }
           }
           button('Изменить') { stretchy false }

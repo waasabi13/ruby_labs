@@ -16,8 +16,8 @@ class StudentListController
   end
 
   def on_view_created
-    @student_list = StudentList.new(StudentListFileAdapter.new(StudentListJSON.new, './LabStudents/test_data/students.json'))
-    #@student_list=StudentList.new(StudentListDbAdapter.new)
+    #@student_list = StudentList.new(StudentListFileAdapter.new(StudentListJSON.new, './LabStudents/test_data/students.json'))
+    @student_list=StudentList.new(StudentListDbAdapter.new)
   end
 
   def show_view
@@ -25,13 +25,13 @@ class StudentListController
   end
 
   def refresh_data(k, n)
-    #begin
+    begin
       #raise StandardError, "Error DB"
     @data_list = @student_list.k_n_student_short_list(k, n, @data_list)
     @view.update_student_count(@student_list.student_count)
-    # rescue
-    #   on_db_conn_error
-    # end
+    rescue
+       on_db_conn_error
+    end
   end
 
   # разрыв соединения с бд

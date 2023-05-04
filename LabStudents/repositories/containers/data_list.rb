@@ -48,8 +48,6 @@ class DataList
   # шаблон
   def get_data
     index_id=0
-    puts objects_list.to_s
-    puts objects_list.class
     dt = objects_list.inject([]) do |res, object|
       row=[index_id]
       row.append(*table_fields(object))
