@@ -24,14 +24,21 @@ class StudentListController
     @view.create.show
   end
 
+  def show_add_student
+    controller = StudentCreateFormController.new(self)
+    view = StudentCreateForm.new(controller)
+    controller.view=view
+    view.create.show
+  end
+
   def refresh_data(k, n)
-    begin
+    #begin
       #raise StandardError, "Error DB"
     @data_list = @student_list.k_n_student_short_list(k, n, @data_list)
     @view.update_student_count(@student_list.student_count)
-    rescue
-       on_db_conn_error
-    end
+    # rescue
+    #    on_db_conn_error
+    # end
   end
 
   # разрыв соединения с бд

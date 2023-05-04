@@ -141,10 +141,18 @@ private
 
 # метод устанавливающий контакт
   def contact
-    return @contact = {phone: phone} unless phone.nil?
-    return @contact = {telegram: telegram} unless telegram.nil?
-    return @contact = {email: email} unless email.nil?
+    # return @contact = {phone: phone} unless phone.nil?
+    # return @contact = {telegram: telegram} unless telegram.nil?
+    # return @contact = {email: email} unless email.nil?
+    #
+    # nil
 
-    nil
+    if phone
+      @contact = {type: :phone, value: phone}
+    elsif telegram
+      @contact = {type: :telegram, value: telegram}
+    elsif email
+      @contact = {type: :email, value: email}
+    end
   end
 end

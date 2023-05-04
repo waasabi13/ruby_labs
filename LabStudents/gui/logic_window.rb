@@ -18,9 +18,12 @@ class LogicWindow
     @controller.refresh_data(@current_page, STUDENTS_PER_PAGE)
   end
 
+  # Метод наблюдателя datalist
   def on_datalist_changed(new_table)
     arr = new_table.to_my_array
-    arr.map { |row| row[3] = [row[3][:phone] || row[3][:telegram] || row[3][:email]] }
+    arr.map do |row|
+      row[3]
+    end
     @table.model_array = arr
   end
 
@@ -122,9 +125,7 @@ class LogicWindow
             stretchy false
 
             on_clicked {
-              #TO DO не делать тут логику
-                StudentCreateForm.new.create.show
-              #@controller.
+               @controller.show_add_student
             }
           }
           button('Изменить') { stretchy false }
