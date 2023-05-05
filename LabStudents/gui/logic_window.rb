@@ -22,7 +22,7 @@ class LogicWindow
   def on_datalist_changed(new_table)
     arr = new_table.to_my_array
     arr.map do |row|
-      row[3]
+      row[3] = row[3][:value] unless row[3].nil?
     end
     @table.model_array = arr
   end
