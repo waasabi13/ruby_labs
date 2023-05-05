@@ -9,7 +9,6 @@ class DataList
 
   def initialize(objects)
     self.objects_list = objects
-    self.selected_objects = []
     @observers = []
   end
 
@@ -25,24 +24,12 @@ class DataList
   end
 
   # добавить айди в выборку
-  def select(number)
-    selected_objects.append(number)
+  def select_elem(number)
+    self.selected_object = number
   end
 
-  # очистить массив выборки
-  def clear_select
-    self.selected_objects = []
-  end
-
-  # получить выделенные объекты
-  def get_selected
-    return [] if selected_objects.empty?
-
-    selected_id_list = []
-    selected_objects.each do |num|
-      selected_id_list.append(objects_list[num].id)
-    end
-    selected_id_list
+  def selected_id
+    objects_list[selected_object].id
   end
 
   # шаблон
@@ -76,5 +63,5 @@ class DataList
   private
 
   attr_reader :objects_list
-  attr_accessor :selected_objects
+  attr_accessor :selected_object
 end
