@@ -1,0 +1,41 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+
+actor       User                        as user
+boundary    "mw: MainWindow"                   as mw
+boundary    "scf: StudentCreateForm"             as scf
+control     "slc: StudentListController"        as slc
+control     "scfc: StudentCreateFormController"  as scfc
+entity      "sl: StudentList"           as sl
+
+user -> mw : Добавить
+mw -> slc : show_add_student
+slc -> scfc : new
+scfc --> slc
+slc -> scf : new
+scf --> slc
+slc -> scfc : view=(view)
+scfc --> slc
+slc -> scf : create
+scf -> scfc : on_view_created
+scfc -> sl : new
+sl --> scfc
+scfc --> scf
+scf --> slc
+slc -> scf : show
+scf --> slc
+slc --> mw
+mw --> user
+
+user -> scf : Сохранить
+scf -> scfc : process_fields
+scfc -> sl : add_student
+sl --> scfc
+scfc -> scf : close
+scf --> scfc
+scfc --> scf
+scf --> user
+
+@enduml
