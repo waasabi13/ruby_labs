@@ -1,0 +1,24 @@
+@startuml
+ 'https://plantuml.com/sequence-diagram
+
+
+
+ actor       User                        as user
+ boundary    "lw: LogicWindow"                   as lw
+ control     "slc: StudentListController"        as slc
+ entity      "sl: StudentList"           as sl
+
+ user -> lw : Удалить
+ lw -> slc : delete_selected
+ slc -> sl : remove_student
+ sl --> slc
+ slc --> lw
+ lw -> slc : refresh_data
+ slc -> sl : k_n_student_short_list
+ sl --> slc
+ slc -> lw : update_student_count
+ lw --> slc
+ slc --> lw
+ lw --> user
+
+ @enduml

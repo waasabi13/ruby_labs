@@ -4,14 +4,14 @@
 
 
 actor       User                        as user
-boundary    "mw: MainWindow"                   as mw
+boundary    "lw: LogicWindow"                   as lw
 boundary    "scf: StudentCreateForm"             as scf
 control     "slc: StudentListController"        as slc
 control     "scfc: StudentCreateFormController"  as scfc
 entity      "sl: StudentList"           as sl
 
-user -> mw : Добавить
-mw -> slc : show_add_student
+user -> lw : Добавить
+lw -> slc : show_add_student
 slc -> scfc : new
 scfc --> slc
 slc -> scf : new
@@ -26,8 +26,8 @@ scfc --> scf
 scf --> slc
 slc -> scf : show
 scf --> slc
-slc --> mw
-mw --> user
+slc --> lw
+lw --> user
 
 user -> scf : Сохранить
 scf -> scfc : process_fields
