@@ -6,9 +6,13 @@ require_relative '../repositories/student_list_db_adapter'
 require_relative '../repositories/student_list_file_adapter'
 require_relative '../repositories/data_sources/strategy/student_list_json'
 require_relative '../repositories/containers/data_list_student_short'
+require_relative 'student_create_form_controller'
+require_relative 'student_edit_form_controller'
 require 'glimmer-dsl-libui'
 
 class StudentListController
+
+  attr_reader :view
   def initialize(view)
     @view = view
     @data_list = DataListStudentShort.new([])
@@ -20,29 +24,42 @@ class StudentListController
     @student_list=StudentList.new(StudentListDbAdapter.new)
   end
 
+
   def show_view
     @view.create.show
   end
 
-  def show_add_student
+  def show_add_student()
     controller = StudentCreateFormController.new(self)
     view = StudentCreateForm.new(controller)
     controller.view=view
     view.create.show
   end
 
+  def show_edit_student(current_page, per_page, selected_row)
+    student_num = (current_page - 1) * per_page + selected_row
+    @data_list.select_elem(student_num)
+    student_id = @data_list.selected_id
+    controller = StudentEditFormController.new(self, student_id)
+    view = StudentCreateForm.new(controller)
+    controller.view=view
+    view.create.show
+  end
+
   def delete_selected(current_page, per_page, selected_row)
-    #begin
-      student_num = (current_page - 1) * per_page + selected_row
+    # begin
+    #student_num = (current_page - 1) * per_page + selected_row
+    student_num = selected_row
+    puts student_num
       @data_list.select_elem(student_num)
       student_id = @data_list.selected_id
       @student_list.remove_student(student_id)
-    #rescue
-    #on_db_conn_error
-    #end
+    # rescue
+    # on_db_conn_error
+    # end
   end
   def refresh_data(k, n)
-    #begin
+    # begin
       #raise StandardError, "Error DB"
     @data_list = @student_list.k_n_student_short_list(k, n, @data_list)
     @view.update_student_count(@student_list.student_count)

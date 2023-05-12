@@ -1,0 +1,48 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+
+actor       user                        as user
+boundary    "lw: LogicWindow"                   as lw
+control     "slc: StudentListController"        as slc
+boundary    "scf: StudentCreateForm"             as scf
+control     "sefce: StudentEditFormControllerEdit"  as sefce
+entity      "sl: StudentList"           as sl
+
+user -> lw : Изменить
+lw -> slc : show_edit_student
+slc -> sefce : <<new>>
+sefce --> slc
+slc -> scf : <<new>>
+scf --> slc
+slc -> sefce : set_view
+sefce --> slc
+slc -> scf : create
+scf -> sefce : on_view_created
+sefce -> sl : <<new>>
+sl --> sefce
+sefce -> sl : student_by_id
+sl --> sefce
+sefce -> scf : make_readonly
+scf --> sefce
+sefce -> scf : set_value
+scf --> sefce
+sefce --> scf
+scf --> slc
+slc -> scf : show
+scf --> slc
+slc --> lw
+lw --> user
+
+user -> scf : Сохранить
+scf -> sefce : process_fields
+sefce -> sl : replace_student
+sl --> sefce
+sefce -> scf : close
+scf --> sefce
+sefce --> scf
+scf --> user
+
+
+@enduml

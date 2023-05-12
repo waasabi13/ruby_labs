@@ -24,7 +24,7 @@ class StudentListDbAdapter
     hash = from_array_to_hash(hash)
     return nil if hash.nil?
 
-    Student.from_hash(hash).to_s
+    Student.from_hash(hash)
 
   end
 
