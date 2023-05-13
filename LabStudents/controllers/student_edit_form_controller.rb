@@ -1,13 +1,15 @@
 # frozen_string_literal: true
-
+require '../logger/logger_holder'
 class StudentEditFormController
   def initialize(parent_controller, existing_student_id)
     @parent_controller = parent_controller
     @existing_student_id = existing_student_id
+    LoggerHolder.instance.debug('StudentEditFormController: initialized')
   end
 
   def view=(view)
     @view = view
+    LoggerHolder.instance.debug('StudentEditFormController: view')
   end
 
   def on_view_created
@@ -33,7 +35,10 @@ class StudentEditFormController
   def process_fields(fields)
       new_student = Student.from_hash(fields)
 
+      LoggerHolder.instance.debug('StudentEditFormController: replace student')
+
       @student_list.replace_student(@existing_student_id, new_student)
+
 
       @view.close
   end

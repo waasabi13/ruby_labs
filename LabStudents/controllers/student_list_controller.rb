@@ -10,20 +10,29 @@ require_relative 'student_create_form_controller'
 require_relative 'student_edit_form_controller'
 require_relative 'student_git_form_controller'
 require_relative 'student_contact_form_controller'
+require '../logger/logger_holder'
 require 'glimmer-dsl-libui'
 
 class StudentListController
 
   attr_reader :view
   def initialize(view)
+    LoggerHolder.instance.debug('StudentListController: init start')
     @view = view
     @data_list = DataListStudentShort.new([])
     @data_list.add_observer(@view)
+    LoggerHolder.instance.debug('StudentListController: init done')
   end
 
   def on_view_created
     #@student_list = StudentList.new(StudentListFileAdapter.new(StudentListJSON.new, './LabStudents/test_data/students.json'))
-    @student_list=StudentList.new(StudentListDbAdapter.new)
+
+    begin
+      @student_list=StudentList.new(StudentListDbAdapter.new)
+      LoggerHolder.instance.debug('StudentListController: init start')
+    rescue
+      on_db_conn_error
+      end
   end
 
 
@@ -32,6 +41,7 @@ class StudentListController
   end
 
   def show_add_student()
+    LoggerHolder.instance.debug('StudentListController: show add student')
     controller = StudentCreateFormController.new(self)
     view = StudentCreateForm.new(controller)
     controller.view=view
@@ -39,6 +49,7 @@ class StudentListController
   end
 
   def show_edit_student(current_page, per_page, selected_row)
+    LoggerHolder.instance.debug('StudentListController: show edit name')
     student_num = selected_row
     @data_list.select_elem(student_num)
     student_id = @data_list.selected_id
@@ -49,6 +60,7 @@ class StudentListController
   end
 
   def show_git_student(current_page, per_page, selected_row)
+    LoggerHolder.instance.debug('StudentListController: show edit git')
     student_num = selected_row
     @data_list.select_elem(student_num)
     student_id = @data_list.selected_id
@@ -59,6 +71,7 @@ class StudentListController
   end
 
   def show_contact_student(current_page, per_page, selected_row)
+    LoggerHolder.instance.debug('StudentListController: show edit git')
     student_num = selected_row
     @data_list.select_elem(student_num)
     student_id = @data_list.selected_id
