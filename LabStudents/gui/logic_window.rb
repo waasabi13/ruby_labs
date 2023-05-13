@@ -138,9 +138,14 @@ class LogicWindow
             } }
           button('Изменить git') { stretchy false
           on_clicked{
-            puts 123
-          }}
-          button('Изменить контакт') { stretchy false }
+            @controller.show_git_student(@current_page, STUDENTS_PER_PAGE, @table.selection) unless @table.selection.nil?
+          }
+          }
+          button('Изменить контакт') { stretchy false
+          on_clicked{
+            @controller.show_contact_student(@current_page, STUDENTS_PER_PAGE, @table.selection) unless @table.selection.nil?
+          }
+          }
           button('Удалить') {
             stretchy false
 

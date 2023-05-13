@@ -8,6 +8,8 @@ require_relative '../repositories/data_sources/strategy/student_list_json'
 require_relative '../repositories/containers/data_list_student_short'
 require_relative 'student_create_form_controller'
 require_relative 'student_edit_form_controller'
+require_relative 'student_git_form_controller'
+require_relative 'student_contact_form_controller'
 require 'glimmer-dsl-libui'
 
 class StudentListController
@@ -37,10 +39,30 @@ class StudentListController
   end
 
   def show_edit_student(current_page, per_page, selected_row)
-    student_num = (current_page - 1) * per_page + selected_row
+    student_num = selected_row
     @data_list.select_elem(student_num)
     student_id = @data_list.selected_id
     controller = StudentEditFormController.new(self, student_id)
+    view = StudentCreateForm.new(controller)
+    controller.view=view
+    view.create.show
+  end
+
+  def show_git_student(current_page, per_page, selected_row)
+    student_num = selected_row
+    @data_list.select_elem(student_num)
+    student_id = @data_list.selected_id
+    controller = StudentGitFormController.new(self, student_id)
+    view = StudentCreateForm.new(controller)
+    controller.view=view
+    view.create.show
+  end
+
+  def show_contact_student(current_page, per_page, selected_row)
+    student_num = selected_row
+    @data_list.select_elem(student_num)
+    student_id = @data_list.selected_id
+    controller = StudentContactFormController.new(self, student_id)
     view = StudentCreateForm.new(controller)
     controller.view=view
     view.create.show
