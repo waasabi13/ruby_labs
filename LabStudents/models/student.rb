@@ -41,6 +41,7 @@ class Student < StudentShort
 
   # конструктор принимающий на вход хээээш
   def self.from_hash(hash)
+    hash = hash.dup
     raise ArgumentError, 'Missing fields: last_name, first_name, paternal_name' unless hash.key?(:first_name) && hash.key?(:last_name) && hash.key?(:paternal_name)
 
     first_name = hash.delete(:first_name)
@@ -115,7 +116,11 @@ class Student < StudentShort
 
   # метод возвращающий краткую инф-ю об объекте
   def short_info
-    "#{short_name}, #{contact}, git= #{git}"
+    info = {}
+    info[:last_name_and_initials] = last_name_and_initials
+    info[:contact] = contact
+    info[:git] = git
+    JSON.generate(info)
   end
 
 
