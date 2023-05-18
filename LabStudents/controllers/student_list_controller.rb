@@ -10,7 +10,7 @@ require_relative 'student_create_form_controller'
 require_relative 'student_edit_form_controller'
 require_relative 'student_git_form_controller'
 require_relative 'student_contact_form_controller'
-require '../logger/logger_holder'
+require_relative '../logger/logger_holder'
 require 'glimmer-dsl-libui'
 
 class StudentListController
@@ -29,7 +29,7 @@ class StudentListController
 
     begin
       @student_list=StudentList.new(StudentListDbAdapter.new)
-      LoggerHolder.instance.debug('StudentListController: init start')
+      LoggerHolder.instance.debug('StudentListController: view create')
     rescue
       on_db_conn_error
       end
