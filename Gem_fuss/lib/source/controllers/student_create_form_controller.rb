@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 require 'sqlite3'
-require_relative '../../Gem_fuss/lib/source/logger/logger_holder'
+require_relative '../logger/logger_holder'
 require_relative '../repositories/student_list'
 require_relative '../repositories/student_list_db_adapter'
 class StudentCreateFormController

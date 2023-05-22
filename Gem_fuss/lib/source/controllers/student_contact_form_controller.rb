@@ -1,21 +1,19 @@
 # frozen_string_literal: true
-require_relative '../../Gem_fuss/lib/source/logger/logger_holder'
-class StudentEditFormController
+
+class StudentContactFormController
   def initialize(parent_controller, existing_student_id)
     @parent_controller = parent_controller
     @existing_student_id = existing_student_id
-    LoggerHolder.instance.debug('StudentEditFormController: initialized')
   end
 
   def view=(view)
     @view = view
-    LoggerHolder.instance.debug('StudentEditFormController: view')
   end
 
   def on_view_created
     @student_list = StudentList.new(StudentListDbAdapter.new)
     @existing_student = @student_list.student_by_id(@existing_student_id)
-    @view.make_readonly(:git, :telegram, :email, :phone)
+    @view.make_readonly(:first_name,:last_name,:paternal_name, :git)
     set_fields(@existing_student)
   end
 
@@ -33,13 +31,10 @@ class StudentEditFormController
 
 
   def process_fields(fields)
-      new_student = Student.from_hash(fields)
+    new_student = Student.from_hash(fields)
 
-      LoggerHolder.instance.debug('StudentEditFormController: replace student')
+    @student_list.replace_student(@existing_student_id, new_student)
 
-      @student_list.replace_student(@existing_student_id, new_student)
-
-
-      @view.close
+    @view.close
   end
 end

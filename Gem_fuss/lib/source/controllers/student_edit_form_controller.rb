@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_relative '../../Gem_fuss/lib/source/logger/logger_holder'
+require_relative '../logger/logger_holder'
 class StudentEditFormController
   def initialize(parent_controller, existing_student_id)
     @parent_controller = parent_controller

@@ -10,7 +10,7 @@ require_relative 'student_create_form_controller'
 require_relative 'student_edit_form_controller'
 require_relative 'student_git_form_controller'
 require_relative 'student_contact_form_controller'
-require_relative '../../Gem_fuss/lib/source/logger/logger_holder'
+require_relative '../logger/logger_holder'
 require 'glimmer-dsl-libui'
 
 class StudentListController
